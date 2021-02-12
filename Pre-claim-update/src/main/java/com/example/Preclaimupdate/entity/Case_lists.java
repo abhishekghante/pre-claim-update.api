@@ -1,17 +1,16 @@
 package com.example.Preclaimupdate.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "case_lists")
@@ -19,69 +18,125 @@ public class Case_lists {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name = "caseId")
 	private int caseId;
-	@Column
+	
+	@Column(name = "policyNumber")
 	private String policyNumber;
-	@Column
+	
+	@JsonIgnore
+	@Column(name = "investigationId")
 	private int investigationId;
-	@Column
+	
+	@Transient
+	private String investigationType;
+	
+	@Column(name = "insuredName")
 	private String insuredName;
-	@Column
+	
+	@Column(name = "insuredDOD")
 	private Date insuredDOD;
-	@Column
+	
+	@Column(name = "insuredDOB")
 	private Date insuredDOB;
-	@Column
-	private Long sumAssured;
-	@Column
+	
+	@Column(name = "sumAssured")
+	private double sumAssured;
+	
+	@Column(name = "intimationType")
 	private String intimationType;
-	@Column
+	
+	@Column(name = "locationId")
 	private int locationId;
-	@Column
+	
+	@Column(name = "caseStatus")
 	private String caseStatus;
-	@Column
+	
+	@Column(name = "nominee_Name")
 	private String nominee_Name;
-	@Column
-	private int nominee_ContactNumber;
-	@Column
+	
+	@Column(name = "nominee_ContactNumber")
+	private String nominee_ContactNumber;
+	
+	@Column(name = "nominee_address")
 	private String nominee_address;
-	@Column
+	
+	@Column(name = "insured_address")
 	private String insured_address;
-	@Column
+	
+	@Column(name = "case_description")
 	private String case_description;
-	@Column
+	
+	@Column(name = "longitude")
 	private String longitude;
-	@Column
+	
+	@Column(name = "latitude")
 	private String latitude;
-	@Column
+	
+	@Column(name = "pdf1FilePath")
 	private String pdf1FilePath;
-	@Column
+	
+	@Column(name = "pdf2FilePath")
 	private String pdf2FilePath;
-	@Column
+	
+	@Column(name = "pdf3FilePath")
 	private String pdf3FilePath;
-	@Column
+	
+	@Column(name = "audioFilePath")
 	private String audioFilePath;
-	@Column
+	
+	@Column(name = "videoFilePath")
 	private String videoFilePath;
-	@Column
+	
+	@Column(name = "signatureFilePath")
 	private String signatureFilePath;
-	@Column
+	
+	@Column(name = "createdBy")
 	private String createdBy;
-	@Column
+	
+	@Column(name = "createdDate")
 	private Date createdDate;
-	@Column
+	
+	@Column(name = "updatedDate")
 	private Date updatedDate;
-	@Column
+	
+	@Column(name = "updatedBy")
 	private String updatedBy;
 
 	public Case_lists() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.caseId = 0;
+		this.policyNumber = "";
+		this.investigationId = 0;
+		this.insuredName = "";
+		this.insuredDOD = new Date();
+		this.insuredDOB = new Date();
+		this.sumAssured = 0;
+		this.intimationType = "";
+		this.locationId = 0;
+		this.caseStatus = "";
+		this.nominee_Name = "";
+		this.nominee_ContactNumber = "";
+		this.nominee_address = "";
+		this.insured_address = "";
+		this.case_description = "";
+		this.longitude = "";
+		this.latitude = "";
+		this.pdf1FilePath = "";
+		this.pdf2FilePath = "";
+		this.pdf3FilePath = "";
+		this.audioFilePath = "";
+		this.videoFilePath = "";
+		this.signatureFilePath = "";
+		this.createdBy = "";
+		this.createdDate = new Date();
+		this.updatedDate = new Date();
+		this.updatedBy = "";
+		
 	}
 
 	public Case_lists(int caseId, String policyNumber, int investigationId, String insuredName, Date insuredDOD,
 			Date insuredDOB, Long sumAssured, String intimationType, int locationId, String caseStatus,
-			String nominee_Name, int nominee_ContactNumber, String nominee_address, String insured_address,
+			String nominee_Name, String nominee_ContactNumber, String nominee_address, String insured_address,
 			String case_description, String longitude, String latitude, String pdf1FilePath, String pdf2FilePath,
 			String pdf3FilePath, String audioFilePath, String videoFilePath, String signatureFilePath, String createdBy,
 			Date createdDate, Date updatedDate, String updatedBy) {
@@ -139,6 +194,14 @@ public class Case_lists {
 		this.investigationId = investigationId;
 	}
 
+	public String getInvestigationType() {
+		return investigationType;
+	}
+
+	public void setInvestigationType(String investigationType) {
+		this.investigationType = investigationType;
+	}
+
 	public String getInsuredName() {
 		return insuredName;
 	}
@@ -163,11 +226,11 @@ public class Case_lists {
 		this.insuredDOB = insuredDOB;
 	}
 
-	public Long getSumAssured() {
+	public double getSumAssured() {
 		return sumAssured;
 	}
 
-	public void setSumAssured(Long sumAssured) {
+	public void setSumAssured(double sumAssured) {
 		this.sumAssured = sumAssured;
 	}
 
@@ -203,11 +266,11 @@ public class Case_lists {
 		this.nominee_Name = nominee_Name;
 	}
 
-	public int getNominee_ContactNumber() {
+	public String getNominee_ContactNumber() {
 		return nominee_ContactNumber;
 	}
 
-	public void setNominee_ContactNumber(int nominee_ContactNumber) {
+	public void setNominee_ContactNumber(String nominee_ContactNumber) {
 		this.nominee_ContactNumber = nominee_ContactNumber;
 	}
 

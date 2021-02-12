@@ -12,12 +12,12 @@ import com.example.Preclaimupdate.entity.Case_lists;
 @Repository
 public interface CaselistsRepository extends JpaRepository<Case_lists, Integer>{
 	
-	Case_lists findByCaseId(int CaseId);
+	Case_lists findByCaseId(int caseId);
 	
-	@Query(value="SELECT TOP (:size) caseId,policynumber,investigationid,insuredname,insureddod,insureddob,sumassured,intimationtype,locationid,\r\n" + 
-			"casestatus,nominee_name,nominee_ContactNumber,nominee_address,insured_address,case_description\r\n" + 
+	@Query(value="SELECT caseId,policynumber,investigationid,insuredname,insureddod,insureddob,sumassured,intimationtype,locationid," + 
+			"casestatus,nominee_name,nominee_ContactNumber,nominee_address,insured_address,case_description" + 
 			"   FROM Case_lists where case_status =:caseStatus and updated_By =:u ;", nativeQuery = true)
-	List<Case_lists> getCaselists(@Param("size")int size,@Param("caseStatus")String caseStatus,@Param("u")String updatedby);
+	List<Case_lists> getCaselists(@Param("caseStatus")String caseStatus,@Param("u")String updatedby);
 	
 	Case_lists save(Case_lists Case_lists);
 	

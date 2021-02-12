@@ -13,34 +13,45 @@ import javax.persistence.Table;
 @Table(name = "Mail_config")
 public class Mail_config {
 
-	public Mail_config() {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name = "mailConfigId")
 	private int mailConfigId;
-	@Column
+	@Column(name = "username")
 	private String username;
-	@Column
+	@Column(name = "password")
 	private String password;
-	@Column
+	@Column(name = "outgoingServer")
 	private String outgoingServer;
-	@Column
+	@Column(name = "outgoingPort")
 	private int outgoingPort;
-	@Column
+	@Column(name = "encryptionType")
 	private String encryptionType;
-	@Column
+	@Column(name = "status")
 	private int status;
-	@Column
+	@Column(name = "createdBy")
 	private String createdBy;
-	@Column
+	@Column(name = "created_on")
 	private Date created_on;
-	@Column
+	@Column(name = "updatedBy")
 	private String updatedBy;
-	@Column
+	@Column(name = "updated_on")
 	private Date updated_on;
+
+	public Mail_config() {
+		this.mailConfigId = 0;
+		this.username = "";
+		this.password = "";
+		this.outgoingServer = "";
+		this.outgoingPort = 0;
+		this.encryptionType = "";
+		this.status = 0;
+		this.createdBy = "";
+		this.created_on = new Date();
+		this.updatedBy = "";
+		this.updated_on = new Date();
+
+	}
 
 	public Mail_config(int mailConfigId, String username, String password, String outgoingServer, int outgoingPort,
 			String encryptionType, int status, String createdBy, Date created_on, String updatedBy, Date updated_on) {
