@@ -2,13 +2,21 @@ package com.example.Preclaimupdate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class PreClaimUpdateApplication {
+public class PreClaimUpdateApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PreClaimUpdateApplication.class, args);
 		
+	}
+	
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
+	{
+		return application.sources(PreClaimUpdateApplication.class);
 	}
 
 }

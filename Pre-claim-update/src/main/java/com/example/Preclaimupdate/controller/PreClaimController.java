@@ -26,7 +26,7 @@ import com.example.Preclaimupdate.entity.Response;
 import com.example.Preclaimupdate.service.PreClaimService;
 
 @RestController
-@RequestMapping(path = "preclaim")
+@RequestMapping()
 public class PreClaimController {
 
 	@Autowired
