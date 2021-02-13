@@ -10,32 +10,34 @@ public class Request {
 	private String newpassword;
 	private String Status;
 	private int pagesize;
+	private int pageNum;
 	private int caseid;
 	private String description;
 	private Date date;
-	private int lat;
-	private int longi;
+	private String latitude;
+	private String longitude;
 	private String file;
+	private String capturedDate;
 
 	public Request() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Request(String username, String password, String oldpassword, String newpassword, String status,
-			int pagesize, int caseid, String description, Date date, int lat, int longi, String file) {
-		super();
+	public Request(String username, String password, String oldpassword, String newpassword, 
+			String status, int pagesize, int caseid, String description, Date date, String latitude, 
+			String longitude, String file) 
+	{
 		this.username = username;
 		this.password = password;
 		this.oldpassword = oldpassword;
 		this.newpassword = newpassword;
-		Status = status;
+		this.Status = status;
 		this.pagesize = pagesize;
 		this.caseid = caseid;
 		this.description = description;
 		this.date = date;
-		this.lat = lat;
-		this.longi = longi;
+		this.latitude = latitude;
+		this.longitude = longitude;
 		this.file = file;
 	}
 
@@ -87,6 +89,14 @@ public class Request {
 		this.pagesize = pagesize;
 	}
 
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageCount(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
 	public int getCaseid() {
 		return caseid;
 	}
@@ -103,20 +113,24 @@ public class Request {
 		this.date = date;
 	}
 
-	public int getLat() {
-		return lat;
+	public String getLatitude() {
+		return latitude;
 	}
 
-	public void setLat(int lat) {
-		this.lat = lat;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
-	public int getLongi() {
-		return longi;
+	public String getLongitude() {
+		return longitude;
 	}
 
-	public void setLongi(int longi) {
-		this.longi = longi;
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
 
 	public String getDescription() {
@@ -135,4 +149,13 @@ public class Request {
 		this.file = file;
 	}
 
+	public String getCapturedDate() {
+		return capturedDate;
+	}
+
+	public void setCapturedDate(String capturedDate) {
+		this.capturedDate = capturedDate;
+	}
+
+	
 }

@@ -125,59 +125,58 @@ public class PreClaimController {
 	}
 
 	/// pending
-	@PostMapping("/GetCaseListByUserId")
-	public List<Case_lists> GetCaseListByUserId(@RequestBody Request username) {
-		int id =username.getPagesize();
-		System.out.println(id);
-		System.out.println(username.getStatus());
-		System.out.println(username.getUsername());
-		System.out.println(pre.GetCaseListByUserId(id,username.getStatus(),username.getUsername()));
-		return 	pre.GetCaseListByUserId(id,username.getStatus(),username.getUsername());		
+	@PostMapping("/GetCaseListByUsername")
+	public List<Case_lists> GetCaseListByUsername(@RequestBody Request username) 
+	{
+		//Input Parameters
+		String investigatorId = username.getUsername();
+		int pageSize = username.getPagesize();
+		int pageNum = username.getPageNum();
+
+		int min = pageSize*(pageNum - 1) + 1;
+		int max	= pageNum*pageSize;
+		
+		return 	pre.GetCaseListByUsername(investigatorId, min, max);	
 	}
 	
 	@PostMapping("/dashboard")
-	public ResponseEntity<Response> dashboard(@RequestBody Request username) {
+	public ResponseEntity<Response> dashboard(@RequestBody Request username) 
+	{
 		Response jsonResponse = new Response();
 		HashMap<String, Object> log = pre.dashboard(username);
-		if(username.getUsername()!=null) {
-		jsonResponse.setData(log);
-		jsonResponse.setStatus("Dashboard");
-	}
+		if(username.getUsername() != null) 
+		{
+			jsonResponse.setData(log);
+			jsonResponse.setStatus("Dashboard");
+		}
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);		
 	}
-
-///till here//	
 
 	@PostMapping("/uploadFile")
 	public ResponseEntity<Response> uploadFile(@RequestParam("uploadedFile") MultipartFile uploadedFile,
 			HttpServletRequest request) throws IOException {
 		Response jsonResponse = new Response();
 		HashMap<String, Object> log = pre.fileupload(uploadedFile, request);
-		System.out.println(log);
-		if (log.isEmpty()) {
-			jsonResponse.setStatus("Updated the parameters in case_lists");
-		} else {
+		if (log.isEmpty()) 
+		{
+			jsonResponse.setData("File uploaded successfully");
+			jsonResponse.setStatus("*****");
+		} 
+		else 
+		{
 			log.put("error_code", HttpStatus.INTERNAL_SERVER_ERROR);
 			log.put("error_description", "Case not found");
 			jsonResponse.setData(log);
 		}
-
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 	}
 
 	@PostMapping("/updateCaseDetails")
-	public ResponseEntity<Response> updateCaseDetails(@RequestBody Request username) {
+	public ResponseEntity<Response> updateCaseDetails(@RequestBody Request username) 
+	{
 		Response jsonResponse = new Response();
-		HashMap<String, Object> log = pre.updateCaseDetails(username);
-		if (log.isEmpty()) {
-			log.put("error_code", "failed");
-			log.put("error_description", "Error adding case. Kindly contact system administrator");
-			jsonResponse.setData(log);
-		}
-		jsonResponse.setData(log);
-		jsonResponse.setStatus("Success");
+		jsonResponse.setData(pre.updateCaseDetails(username));	
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
-
 	}
 
 }

@@ -7,12 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity
+@Entity(name = "case_lists")
 @Table(name = "case_lists")
 public class Case_lists {
 
@@ -24,12 +23,9 @@ public class Case_lists {
 	@Column(name = "policyNumber")
 	private String policyNumber;
 	
-	@JsonIgnore
-	@Column(name = "investigationId")
-	private int investigationId;
-	
-	@Transient
-	private String investigationType;
+	@OneToOne
+	@JoinColumn(name = "investigationId", referencedColumnName = "investigationId")
+	private Investigation_type investigation;
 	
 	@Column(name = "insuredName")
 	private String insuredName;
@@ -46,8 +42,9 @@ public class Case_lists {
 	@Column(name = "intimationType")
 	private String intimationType;
 	
-	@Column(name = "locationId")
-	private int locationId;
+	@OneToOne
+	@JoinColumn(name = "locationId", referencedColumnName = "locationId")
+	Location_lists location;
 	
 	@Column(name = "caseStatus")
 	private String caseStatus;
@@ -91,6 +88,9 @@ public class Case_lists {
 	@Column(name = "signatureFilePath")
 	private String signatureFilePath;
 	
+	@Column(name = "capturedDate")
+	private String capturedDate;
+	
 	@Column(name = "createdBy")
 	private String createdBy;
 	
@@ -106,13 +106,11 @@ public class Case_lists {
 	public Case_lists() {
 		this.caseId = 0;
 		this.policyNumber = "";
-		this.investigationId = 0;
 		this.insuredName = "";
 		this.insuredDOD = new Date();
 		this.insuredDOB = new Date();
 		this.sumAssured = 0;
 		this.intimationType = "";
-		this.locationId = 0;
 		this.caseStatus = "";
 		this.nominee_Name = "";
 		this.nominee_ContactNumber = "";
@@ -131,43 +129,7 @@ public class Case_lists {
 		this.createdDate = new Date();
 		this.updatedDate = new Date();
 		this.updatedBy = "";
-		
-	}
-
-	public Case_lists(int caseId, String policyNumber, int investigationId, String insuredName, Date insuredDOD,
-			Date insuredDOB, Long sumAssured, String intimationType, int locationId, String caseStatus,
-			String nominee_Name, String nominee_ContactNumber, String nominee_address, String insured_address,
-			String case_description, String longitude, String latitude, String pdf1FilePath, String pdf2FilePath,
-			String pdf3FilePath, String audioFilePath, String videoFilePath, String signatureFilePath, String createdBy,
-			Date createdDate, Date updatedDate, String updatedBy) {
-		super();
-		this.caseId = caseId;
-		this.policyNumber = policyNumber;
-		this.investigationId = investigationId;
-		this.insuredName = insuredName;
-		this.insuredDOD = insuredDOD;
-		this.insuredDOB = insuredDOB;
-		this.sumAssured = sumAssured;
-		this.intimationType = intimationType;
-		this.locationId = locationId;
-		this.caseStatus = caseStatus;
-		this.nominee_Name = nominee_Name;
-		this.nominee_ContactNumber = nominee_ContactNumber;
-		this.nominee_address = nominee_address;
-		this.insured_address = insured_address;
-		this.case_description = case_description;
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.pdf1FilePath = pdf1FilePath;
-		this.pdf2FilePath = pdf2FilePath;
-		this.pdf3FilePath = pdf3FilePath;
-		this.audioFilePath = audioFilePath;
-		this.videoFilePath = videoFilePath;
-		this.signatureFilePath = signatureFilePath;
-		this.createdBy = createdBy;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
+		this.capturedDate = "";
 	}
 
 	public int getCaseId() {
@@ -186,20 +148,12 @@ public class Case_lists {
 		this.policyNumber = policyNumber;
 	}
 
-	public int getInvestigationId() {
-		return investigationId;
+	public Investigation_type getInvestigation() {
+		return investigation;
 	}
 
-	public void setInvestigationId(int investigationId) {
-		this.investigationId = investigationId;
-	}
-
-	public String getInvestigationType() {
-		return investigationType;
-	}
-
-	public void setInvestigationType(String investigationType) {
-		this.investigationType = investigationType;
+	public void setInvestigation(Investigation_type investigation) {
+		this.investigation = investigation;
 	}
 
 	public String getInsuredName() {
@@ -242,12 +196,12 @@ public class Case_lists {
 		this.intimationType = intimationType;
 	}
 
-	public int getLocationId() {
-		return locationId;
+	public Location_lists getLocation() {
+		return location;
 	}
 
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
+	public void setLocation(Location_lists location) {
+		this.location = location;
 	}
 
 	public String getCaseStatus() {
@@ -362,6 +316,14 @@ public class Case_lists {
 		this.signatureFilePath = signatureFilePath;
 	}
 
+	public String getCapturedDate() {
+		return capturedDate;
+	}
+
+	public void setCapturedDate(String capturedDate) {
+		this.capturedDate = capturedDate;
+	}
+
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -393,20 +355,8 @@ public class Case_lists {
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
+	
+	
 
-	@Override
-	public String toString() {
-		return "Case_lists [caseId=" + caseId + ", policyNumber=" + policyNumber + ", investigationId="
-				+ investigationId + ", insuredName=" + insuredName + ", insuredDOD=" + insuredDOD + ", insuredDOB="
-				+ insuredDOB + ", sumAssured=" + sumAssured + ", intimationType=" + intimationType + ", locationId="
-				+ locationId + ", caseStatus=" + caseStatus + ", nominee_Name=" + nominee_Name
-				+ ", nominee_ContactNumber=" + nominee_ContactNumber + ", nominee_address=" + nominee_address
-				+ ", insured_address=" + insured_address + ", case_description=" + case_description + ", longitude="
-				+ longitude + ", latitude=" + latitude + ", pdf1FilePath=" + pdf1FilePath + ", pdf2FilePath="
-				+ pdf2FilePath + ", pdf3FilePath=" + pdf3FilePath + ", audioFilePath=" + audioFilePath
-				+ ", videoFilePath=" + videoFilePath + ", signatureFilePath=" + signatureFilePath + ", createdBy="
-				+ createdBy + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate + ", updatedBy="
-				+ updatedBy + "]";
-	}
-
+	
 }

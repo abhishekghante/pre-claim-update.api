@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.example.Preclaimupdate.entity.Case_lists;
 import com.example.Preclaimupdate.entity.Case_movement;
 
 @Repository

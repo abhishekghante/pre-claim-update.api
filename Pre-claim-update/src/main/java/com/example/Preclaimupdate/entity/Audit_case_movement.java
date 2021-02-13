@@ -4,34 +4,36 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "audit_case_movement")
 @Table(name = "audit_case_movement")
 public class Audit_case_movement {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name = "caseId")
 	private int caseId;
-	@Column
+	
+	@Column(name = "fromId")
 	private String fromId;
-	@Column
+	
+	@Column(name = "toId")
 	private String toId;
-	@Column
+	
+	@Column(name = "caseStatus")
 	private String caseStatus;
-	@Column
+	
+	@Column(name = "remarks")
 	private String remarks;
-	@Column
+	
+	@Column(name = "createdDate")
 	private Date createdDate;
-	@Column
+	
+	@Column(name = "updatedDate")
 	private Date updatedDate;
 
 	public Audit_case_movement() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Audit_case_movement(int caseId, String fromId, String toId, String caseStatus, String remarks,

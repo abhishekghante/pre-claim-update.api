@@ -8,36 +8,57 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-@Entity
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity(name = "location_lists")
 @Table(name = "location_lists")
 public class Location_lists {
 
-	public Location_lists() {
-		// TODO Auto-generated constructor stub
-	}
-
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private int locationId;
+	
 	@Column
 	private String city;
+	
 	@Column
 	private String state;
+	
 	@Column
 	private String zone;
-	@Column
+	
+	@JsonIgnore
+	@Transient
 	private String createdBy;
-	@Column
+	
+	@JsonIgnore
+	@Transient
 	private Date createdDate;
-	@Column
+	
+	@JsonIgnore
+	@Transient
 	private Date updatedDate;
-	@Column
+	
+	@JsonIgnore
+	@Transient
 	private String updatedBy;
-	@Column
+	
+	@JsonIgnore
+	@Transient
 	private int status;
 
+	public Location_lists()
+	{
+		this.locationId = 0;
+		this.city = "";
+		this.state = "";
+		this.zone = "";
+	}
+	
 	public Location_lists(int locationId, String city, String state, String zone, String createdBy, Date createdDate,
 			Date updatedDate, String updatedBy, int status) {
 		super();

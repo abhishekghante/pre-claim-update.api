@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "case_movement")
 @Table(name = "case_movement")
 public class Case_movement {
 

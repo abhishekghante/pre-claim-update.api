@@ -2,7 +2,6 @@ package com.example.Preclaimupdate.service;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -30,12 +29,10 @@ import com.example.Preclaimupdate.controller.Repository.AdminuserRepository;
 import com.example.Preclaimupdate.controller.Repository.Audit_casemovementRepository;
 import com.example.Preclaimupdate.controller.Repository.Case_movementRepository;
 import com.example.Preclaimupdate.controller.Repository.CaselistsRepository;
-import com.example.Preclaimupdate.controller.Repository.InvestigationRepository;
 import com.example.Preclaimupdate.entity.Admin_user;
 import com.example.Preclaimupdate.entity.Audit_case_movement;
 import com.example.Preclaimupdate.entity.Case_lists;
 import com.example.Preclaimupdate.entity.Case_movement;
-import com.example.Preclaimupdate.entity.Investigation_type;
 import com.example.Preclaimupdate.entity.Request;
 
 @Service
@@ -48,17 +45,15 @@ public class PreClaimService {
 	private AdminuserRepository Adminuser;
 	
 	@Autowired
-	private InvestigationRepository ino;
-	
-	@Autowired
 	private Case_movementRepository caserepo;
 
 	@Autowired
 	private CaselistsRepository Caselist;
 	
 	@Autowired
-	private Audit_casemovementRepository audite;
-
+	private Audit_casemovementRepository audit_repo;
+	
+	
 	public Admin_user getbyusername(String username) {
 
 		return Adminuser.findByUsername(username);
@@ -99,38 +94,21 @@ public class PreClaimService {
 			Adminuser.save(user);
 			return true;
 		}
-
 		return false;
 
 	}
 
 	public Case_lists GetCaseDetailsByCaseId(int id) 
 	{
-		Case_lists caselist = Caselist.findByCaseId(id);
-		Investigation_type investigationType =ino.findByInvestigationId(caselist.getInvestigationId());
-		caselist.setInvestigationType(investigationType.getInvestigationType());
+		Case_lists caselist = Caselist.findByCaseId(id);		
 		return caselist;
 	}
 
-	public List<Case_lists> GetCaseListByUserId(int size, String status, String updatedby) {
-
-		List<Case_lists> caselist = Caselist.getCaselists(status,updatedby);
-		System.out.println(caselist);
+	public List<Case_lists> GetCaseListByUsername(String username, int min, int max) {
+		List<Case_lists> caselist = Caselist.getCaselists(username, min, max);
 		return caselist;
-
-	}
-
-	public List<Case_lists> FindAll() {
-		return Caselist.findAll();
-
-	}
-	public List<Investigation_type> Find() {
-		return ino.findAll();
-
-	}
+	}	
 	
-	
-
 	public HashMap<String, Object> fileupload(MultipartFile uploadedFile, HttpServletRequest request)
 			throws IOException {
 		HashMap<String, Object> log = new HashMap<String, Object>();
@@ -231,36 +209,27 @@ public class PreClaimService {
 	}
 
 	public HashMap<String, Object> updateCaseDetails(Request username) {
-		System.out.println(username.getCaseid());
-		System.out.println(username.getUsername());
-				System.out.println(username.getDescription());
-				System.out.println(username.getLat());
-				System.out.println(username.getLongi());
-
+		
 		Case_lists caselist = Caselist.findByCaseId(username.getCaseid());
-		Case_movement cas =caserepo.findByCaseId(caselist.getCaseId());
+		
+		Case_movement cas = caserepo.findByCaseId(caselist.getCaseId());
 		String to = cas.getToId();
 		String from = cas.getFromId();
 		cas.setFromId(to);
 		cas.setToId(from);
 		cas.setUpdatedDate(new Date());
 		caserepo.save(cas);
-		Audit_case_movement audit=new Audit_case_movement();
-		audit.setCaseId(caselist.getCaseId());
-		audit.setCaseStatus(caselist.getCaseStatus());
-		audit.setCreatedDate(caselist.getCreatedDate());
-		audit.setFromId(to);
-		audit.setRemarks(caselist.getCase_description());
-		audit.setToId(from);
-		audit.setUpdatedDate(new Date());
-		audite.save(audit);
+		
+		audit_repo.insertlog(caselist.getCaseId());
+		
 		caselist.setUpdatedBy(username.getUsername());
 		caselist.setCase_description(username.getDescription());
 		caselist.setCreatedDate(new Date());
-		caselist.setLatitude(""+username.getLat());
-		caselist.setLongitude(""+username.getLongi());
-		HashMap<String, Object> log = new HashMap<String, Object>();
+		caselist.setLatitude(username.getLatitude());
+		caselist.setLongitude(username.getLongitude());
+		caselist.setCapturedDate(username.getCapturedDate());
 		Caselist.save(caselist);
+		HashMap<String, Object> log = new HashMap<String, Object>();
 		if (caselist != null) {
 			log.put("error_code", "****");
 			log.put("error_description", "Cases Details submitted successfully");

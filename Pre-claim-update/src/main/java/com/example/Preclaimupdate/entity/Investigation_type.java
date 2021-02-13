@@ -8,31 +8,50 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-@Entity
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity(name = "investigation_type")
 @Table(name = "investigation_type")
-public class Investigation_type {
+public class Investigation_type 
+{
 
-	public Investigation_type() {
-		// TODO Auto-generated constructor stub
-	}
-
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name = "investigationId")
 	private int investigationId;
-	@Column
+	
+	@Column(name = "investigationType")
 	private String investigationType;
-	@Column
+	
+	@JsonIgnore
+	@Transient
 	private String createdBy;
-	@Column
+	
+	@JsonIgnore
+	@Transient
 	private Date createdDate;
-	@Column
+	
+	@JsonIgnore
+	@Transient
 	private Date updatedDate;
-	@Column
+	
+	@JsonIgnore
+	@Transient
 	private String updatedBy;
-	@Column
+	
+	@JsonIgnore
+	@Transient
 	private int status;
+	
+	public Investigation_type() 
+	{
+		investigationId = 0;
+		investigationType = "";
+		
+	}
 
 	public Investigation_type(int investigationId, String investigationType, String createdBy, Date createdDate,
 			Date updatedDate, String updatedBy, int status) {

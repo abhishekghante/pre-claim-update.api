@@ -17,24 +17,34 @@ public class Mail_config {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "mailConfigId")
 	private int mailConfigId;
+	
 	@Column(name = "username")
 	private String username;
+	
 	@Column(name = "password")
 	private String password;
+	
 	@Column(name = "outgoingServer")
 	private String outgoingServer;
+	
 	@Column(name = "outgoingPort")
 	private int outgoingPort;
+	
 	@Column(name = "encryptionType")
 	private String encryptionType;
+	
 	@Column(name = "status")
 	private int status;
+	
 	@Column(name = "createdBy")
 	private String createdBy;
+	
 	@Column(name = "created_on")
 	private Date created_on;
+	
 	@Column(name = "updatedBy")
 	private String updatedBy;
+	
 	@Column(name = "updated_on")
 	private Date updated_on;
 

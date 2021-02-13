@@ -14,10 +14,12 @@ public interface CaselistsRepository extends JpaRepository<Case_lists, Integer>{
 	
 	Case_lists findByCaseId(int caseId);
 	
-	@Query(value="SELECT caseId,policynumber,investigationid,insuredname,insureddod,insureddob,sumassured,intimationtype,locationid," + 
-			"casestatus,nominee_name,nominee_ContactNumber,nominee_address,insured_address,case_description" + 
-			"   FROM Case_lists where case_status =:caseStatus and updated_By =:u ;", nativeQuery = true)
-	List<Case_lists> getCaselists(@Param("caseStatus")String caseStatus,@Param("u")String updatedby);
+	@Query(value = "SELECT D.* FROM case_lists D WHERE D.caseId IN (SELECT B.caseId FROM "
+			+ "(SELECT ROW_NUMBER() OVER(ORDER BY A.caseId) AS RRN , A.caseId from case_lists A "
+			+ "WHERE A.caseId in (SELECT caseId from case_movement where toId = :username)) B "
+			+ "WHERE B.RRN BETWEEN :min AND :max) ", nativeQuery = true)
+	List<Case_lists> getCaselists(@Param("username")String username, 
+			@Param("min")int min, @Param("max")int max);
 	
 	Case_lists save(Case_lists Case_lists);
 	
