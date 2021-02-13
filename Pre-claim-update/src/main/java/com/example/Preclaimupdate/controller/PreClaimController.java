@@ -147,7 +147,7 @@ public class PreClaimController {
 		if(username.getUsername() != null) 
 		{
 			jsonResponse.setData(log);
-			jsonResponse.setStatus("Dashboard");
+			jsonResponse.setStatus("****");
 		}
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);		
 	}
