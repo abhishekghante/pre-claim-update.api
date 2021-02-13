@@ -241,16 +241,12 @@ public class PreClaimService {
 	}
 	
 	public HashMap<String, Object> dashboard(Request username) {
-		System.out.println(username.getUsername());
-		List<Case_lists> list=Caselist.findall();
-		List<Case_movement> ca = caserepo.getCaselists1(username.getUsername());
-		List<Case_movement> case2 =caserepo.getCaselists(username.getUsername());
-		System.out.println(list);
-
 		HashMap<String, Object> log = new HashMap<String, Object>();
-		log.put("actioned by Investigator", ca.size());
-		log.put("Cases Assigned to Investigator", case2.size());
-		log.put("PIV/PRV/LIVE count", list.size());
+		log.put("New", caserepo.getNewCaseCount(username.getUsername()));
+		log.put("Actioned by Investigator", caserepo.getCaseSubmittedCount(username.getUsername()));
+		log.put("PIV/PRV/LIVE count", Caselist.getCaseIntimationCount(username.getUsername()));
+		log.put("Claim Document Pickup", Caselist.getCDPCaseCount(username.getUsername()));
+		log.put("Closed", caserepo.getCaseClosedCount(username.getUsername()));
 		return log;
 		
 	}

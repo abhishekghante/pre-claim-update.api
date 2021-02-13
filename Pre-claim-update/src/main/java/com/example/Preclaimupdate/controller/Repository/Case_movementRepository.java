@@ -1,7 +1,5 @@
 package com.example.Preclaimupdate.controller.Repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,11 +12,15 @@ public interface Case_movementRepository extends JpaRepository<Case_movement, In
 	
 	Case_movement findByCaseId(int CaseId);
 	
-	@Query(value="select * from Case_movement where from_id =6060;", nativeQuery = true)
-	List<Case_movement> getCaselists1(@Param("username")String username);
+	@Query(value="select count(*) from case_movement where toId = :username", nativeQuery = true)
+	int getNewCaseCount(@Param("username")String username);
 	
-	@Query(value="select * from Case_movement where to_id =6060;", nativeQuery = true)
-	List<Case_movement> getCaselists(@Param("username")String username);
+	@Query(value="select count(*) from case_movement where fromId = :username", nativeQuery = true)
+	int getCaseSubmittedCount(@Param("username")String username);
+
+	@Query(value="select count(*) from case_movement where toId = :username and caseStatus ='Closed'", 
+			nativeQuery = true)
+	int getCaseClosedCount(@Param("username")String username);
 	
 	Case_movement save(Case_movement Case_lists);
 

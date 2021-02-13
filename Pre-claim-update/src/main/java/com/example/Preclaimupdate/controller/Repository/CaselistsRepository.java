@@ -23,9 +23,16 @@ public interface CaselistsRepository extends JpaRepository<Case_lists, Integer>{
 	
 	Case_lists save(Case_lists Case_lists);
 	
-	@Query(value="select * from Case_lists where intimation_type in('PIV','PRV','LIVE');", nativeQuery = true)
-	List<Case_lists> findall();
+	@Query(value="select count(*) from case_lists where intimation_type <> 'CDP' where caseId in "
+			+ "(SELECT caseId from case_movement where toId = :username)"
+			, nativeQuery = true)		
+	int getCaseIntimationCount(@Param("username") String username);
 	
+	
+	@Query(value="select count(*) from case_lists where intimation_type = 'CDP' where caseId in "
+			+ "(SELECT caseId from case_movement where toId = :username)"
+			, nativeQuery = true)
+	int getCDPCaseCount(@Param("username") String username);
 	
 	
 }
