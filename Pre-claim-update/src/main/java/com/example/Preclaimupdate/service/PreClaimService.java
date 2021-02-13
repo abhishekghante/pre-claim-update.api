@@ -219,11 +219,10 @@ public class PreClaimService {
 		cas.setToId(from);
 		cas.setUpdatedDate(new Date());
 		caserepo.save(cas);
-		
 		audit_repo.insertlog(caselist.getCaseId());
 		
 		caselist.setUpdatedBy(username.getUsername());
-		caselist.setCase_description(username.getDescription());
+		caselist.setCase_description(username.getCase_description());
 		caselist.setCreatedDate(new Date());
 		caselist.setLatitude(username.getLatitude());
 		caselist.setLongitude(username.getLongitude());

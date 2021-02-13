@@ -12,7 +12,7 @@ public class Request {
 	private int pagesize;
 	private int pageNum;
 	private int caseid;
-	private String description;
+	private String case_description;
 	private Date date;
 	private String latitude;
 	private String longitude;
@@ -24,7 +24,7 @@ public class Request {
 	}
 
 	public Request(String username, String password, String oldpassword, String newpassword, 
-			String status, int pagesize, int caseid, String description, Date date, String latitude, 
+			String status, int pagesize, int caseid, String case_description, Date date, String latitude, 
 			String longitude, String file) 
 	{
 		this.username = username;
@@ -34,7 +34,7 @@ public class Request {
 		this.Status = status;
 		this.pagesize = pagesize;
 		this.caseid = caseid;
-		this.description = description;
+		this.case_description = case_description;
 		this.date = date;
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -93,7 +93,7 @@ public class Request {
 		return pageNum;
 	}
 
-	public void setPageCount(int pageNum) {
+	public void setPageNum(int pageNum) {
 		this.pageNum = pageNum;
 	}
 
@@ -103,6 +103,14 @@ public class Request {
 
 	public void setCaseid(int caseid) {
 		this.caseid = caseid;
+	}
+
+	public String getCase_description() {
+		return case_description;
+	}
+
+	public void setCase_description(String case_description) {
+		this.case_description = case_description;
 	}
 
 	public Date getDate() {
@@ -127,18 +135,6 @@ public class Request {
 
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
-	}
-
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getFile() {
