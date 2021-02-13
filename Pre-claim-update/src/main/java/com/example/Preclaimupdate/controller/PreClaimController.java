@@ -164,8 +164,6 @@ public class PreClaimController {
 		} 
 		else 
 		{
-			log.put("error_code", HttpStatus.INTERNAL_SERVER_ERROR);
-			log.put("error_description", "Case not found");
 			jsonResponse.setData(log);
 		}
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);

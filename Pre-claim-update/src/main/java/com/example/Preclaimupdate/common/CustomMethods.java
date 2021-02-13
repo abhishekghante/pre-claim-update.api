@@ -14,6 +14,7 @@ public class CustomMethods {
 		uploadType.add("image");
 		uploadType.add("audio");
 		uploadType.add("video");
+		uploadType.add("signature");
 		return uploadType;
 	}
 

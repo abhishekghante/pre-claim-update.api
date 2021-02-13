@@ -151,7 +151,7 @@ public class PreClaimService {
 			if (!uploadedFile.isEmpty()) {
 				byte[] bytes = uploadedFile.getBytes();
 				String originalFilename = uploadedFile.getOriginalFilename();
-				String filename = username + "_" + fileType + "_"
+				String filename = caseId + "_" + fileType + "."
 						+ FileUtils.getFileExtension(new File(originalFilename));
 				File serverFile = new File(Config.uploadDirectory + filename);
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));

@@ -14,24 +14,29 @@ import javax.persistence.Table;
 public class Case_movement {
 
 	public Case_movement() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name =  "caseId")
 	private int caseId;
-	@Column
+	
+	@Column(name =  "fromId")
 	private String fromId;
-	@Column
+	
+	@Column(name =  "toId")
 	private String toId;
-	@Column
+	
+	@Column(name =  "caseStatus")
 	private String caseStatus;
-	@Column
+	
+	@Column(name =  "remarks")
 	private String remarks;
-	@Column
+	
+	@Column(name =  "createdDate")
 	private Date createdDate;
-	@Column
+	
+	@Column(name =  "updatedDate")
 	private Date updatedDate;
 
 	public Case_movement(int caseId, String fromId, String toId, String caseStatus, String remarks, Date createdDate,
