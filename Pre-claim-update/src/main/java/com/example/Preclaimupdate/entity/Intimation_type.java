@@ -14,7 +14,6 @@ import javax.persistence.Table;
 public class Intimation_type {
 
 	public Intimation_type() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Id

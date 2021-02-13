@@ -14,7 +14,6 @@ import javax.persistence.Table;
 public class Permission {
 
 	public Permission() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Id

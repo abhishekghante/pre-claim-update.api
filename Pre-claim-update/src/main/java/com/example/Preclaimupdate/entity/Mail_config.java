@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "Mail_config")
 @Table(name = "Mail_config")
 public class Mail_config {
 

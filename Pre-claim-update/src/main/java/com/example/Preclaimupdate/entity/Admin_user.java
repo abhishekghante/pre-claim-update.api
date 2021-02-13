@@ -9,50 +9,49 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "admin_user")
 @Table(name = "admin_user")
 public class Admin_user {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name = "user_id")
 	private int user_id;
-	@Column
+	@Column(name = "full_name")
 	private String full_name;
-	@Column
+	@Column(name = "role_name")
 	private String role_name;
-	@Column
+	@Column(name = "username")
 	private String username;
-	@Column
+	@Column(name = "user_email")
 	private String user_email;
-	@Column
+	@Column(name = "mobile_number")
 	private String mobile_number;
-	@Column
+	@Column(name = "address1")
 	private String address1;
-	@Column
+	@Column(name = "address2")
 	private String address2;
-	@Column
+	@Column(name = "address3")
 	private String address3;
-	@Column
+	@Column(name = "state")
 	private String state;
-	@Column
+	@Column(name = "city")
 	private String city;
-	@Column
+	@Column(name = "password")
 	private String password;
-	@Column
+	@Column(name = "status")
 	private String status;
-	@Column
+	@Column(name = "user_image")
 	private String user_image;
-	@Column
+	@Column(name = "createdBy")
 	private String createdBy;
-	@Column
+	@Column(name = "createdon")
 	private Date createdon;
-	@Column
+	@Column(name = "updatedDate")
 	private Date updatedDate;
-	@Column
+	@Column(name = "updatedBy")
 	private String updatedBy;
 	
-
 	public Admin_user(int user_id, String full_name, String role_name, String username, String user_email,
 			String mobile_number, String address1, String address2, String address3, String state, String city,
 			String password, String status, String user_image, String createdBy, Date createdon, Date updatedDate,

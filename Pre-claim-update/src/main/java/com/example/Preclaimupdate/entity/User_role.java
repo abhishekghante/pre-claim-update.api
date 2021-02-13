@@ -14,7 +14,6 @@ import javax.persistence.Table;
 public class User_role {
 
 	public User_role() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Id
