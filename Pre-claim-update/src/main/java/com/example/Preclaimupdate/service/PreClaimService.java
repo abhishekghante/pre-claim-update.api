@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.Date;
@@ -30,7 +32,6 @@ import com.example.Preclaimupdate.controller.Repository.Audit_casemovementReposi
 import com.example.Preclaimupdate.controller.Repository.Case_movementRepository;
 import com.example.Preclaimupdate.controller.Repository.CaselistsRepository;
 import com.example.Preclaimupdate.entity.Admin_user;
-import com.example.Preclaimupdate.entity.Audit_case_movement;
 import com.example.Preclaimupdate.entity.Case_lists;
 import com.example.Preclaimupdate.entity.Case_movement;
 import com.example.Preclaimupdate.entity.Request;
@@ -64,7 +65,7 @@ public class PreClaimService {
 		user.setPassword(pass);
 		Adminuser.save(user);
 		String toAddress = user.getUser_email();
-		String senderName = "Your company name";
+//		String senderName = "Your company name";
 		String subject = "You temp password ";
 		String content = "Your temp password is<h3> [[name]]</h3>Kindly set your password,<br>" + "Thank you,<br>"
 				+ "Your company name.";
@@ -151,7 +152,9 @@ public class PreClaimService {
 			if (!uploadedFile.isEmpty()) {
 				byte[] bytes = uploadedFile.getBytes();
 				String originalFilename = uploadedFile.getOriginalFilename();
-				String filename = caseId + "_" + fileType + "."
+				String currentDate = 
+						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				String filename = caseId + "_" + fileType + "_" + currentDate + "."
 						+ FileUtils.getFileExtension(new File(originalFilename));
 				File serverFile = new File(Config.uploadDirectory + filename);
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
