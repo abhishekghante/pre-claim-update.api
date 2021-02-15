@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.Preclaimupdate.common.CustomMethods;
 import com.example.Preclaimupdate.entity.Admin_user;
 import com.example.Preclaimupdate.entity.Case_lists;
 import com.example.Preclaimupdate.entity.Request;
@@ -28,17 +29,16 @@ import com.example.Preclaimupdate.entity.Response;
 import com.example.Preclaimupdate.service.PreClaimService;
 
 @RestController
-@RequestMapping()
+@RequestMapping
 public class PreClaimController {
 	
-	Logger logger =LoggerFactory.getLogger(PreClaimController.class);
+	Logger logger = LoggerFactory.getLogger(PreClaimController.class);
 
 	@Autowired
 	private PreClaimService pre;
 
 	@PostMapping("/login")
 	public ResponseEntity<Response> login(@RequestBody Request username) {
-		logger.error("Controller=/login -> ");
 		Response jsonResponse;
 		Admin_user user = pre.getbyusername(username.getUsername());
 		Encoder encoder = Base64.getEncoder();
@@ -48,14 +48,12 @@ public class PreClaimController {
 			jsonResponse = new Response();
 			jsonResponse.setData(user);
 			jsonResponse.setStatus("Login Sucsses");
-			logger.error("Controller=/login -> Login Sucsses"+user.getFull_name());
 			return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 		} 
 		else 
 		{
 			jsonResponse = new Response();
 			jsonResponse.setStatus("Invalid credentials");
-			logger.error("Controller=/login -> Invalid credentials"+username.getUsername());
 			return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 		}
 	}
@@ -63,17 +61,14 @@ public class PreClaimController {
 	@PostMapping("/forgot")
 	public ResponseEntity<Response> get(@RequestBody Request username)
 	{
-		logger.error("Controller=/forgot ->");
 		Response jsonResponse;
 		try
 		{
 			Admin_user user = pre.getbyusername(username.getUsername());
 			if (user != null) 
 			{
-				logger.error("Controller=/forgot -> user found "+user.getFull_name());
 				String pass = RandomStringUtils.random(6, true, true);
 				pre.Sendmail(user, pass);
-				logger.error("Controller=/forgot -> Mail Sent");
 				jsonResponse = new Response();
 				jsonResponse.setStatus("Temporary Password sent to registered Email ID");
 				return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
@@ -84,9 +79,9 @@ public class PreClaimController {
 		}
 		catch(Exception e)
 		{
-			logger.error("Controller exception",e);
 			jsonResponse = new Response();
 			jsonResponse.setStatus(e.getMessage());
+			CustomMethods.logError(e);
 			return new ResponseEntity<>(jsonResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
@@ -95,22 +90,18 @@ public class PreClaimController {
 	@PostMapping("/changePassword")
 	public ResponseEntity<Response> changePassword(@RequestBody Request username)
 	{ 
-		logger.error("Controller=/changePassword ->");
 		Response jsonResponse;
 		HashMap<String, String> log = new HashMap<String, String>();
 		System.out.println(pre.changepassword(username));
 		if (pre.changepassword(username)) 
 		{
-			logger.error("Controller=/changePassword -> user found "+username.getUsername());
 			log.put("error_code", "****");
 			log.put("error_description", "Password changed successfully");
-			logger.error("Controller=/changePassword -> user found password changed successfully");
 		} 
 		else 
 		{
 			log.put("error_code", "failed");
 			log.put("error_description", "Invalid Credentials");
-			logger.error("Controller=/changePassword -> Invalid Credentials");
 		}
 		jsonResponse = new Response();
 		jsonResponse.setData(log);

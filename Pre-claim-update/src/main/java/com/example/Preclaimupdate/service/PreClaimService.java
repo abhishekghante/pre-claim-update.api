@@ -3,8 +3,6 @@ package com.example.Preclaimupdate.service;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
@@ -29,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.Preclaimupdate.common.Config;
 import com.example.Preclaimupdate.common.CustomMethods;
-import com.example.Preclaimupdate.controller.PreClaimController;
 import com.example.Preclaimupdate.controller.Repository.AdminuserRepository;
 import com.example.Preclaimupdate.controller.Repository.Audit_casemovementRepository;
 import com.example.Preclaimupdate.controller.Repository.Case_movementRepository;
@@ -95,7 +92,7 @@ public class PreClaimService {
 
 		} catch (MessagingException e) {
 
-			logger.error("Exception", e);
+			CustomMethods.logError(e);
 			e.printStackTrace();
 		}
 	}
@@ -254,7 +251,7 @@ public class PreClaimService {
 			}
 
 		} catch (Exception e) {
-			logger.error("failed", e);
+			CustomMethods.logError(e);
 		}
 		return log;
 
@@ -272,7 +269,7 @@ public class PreClaimService {
 			log.put("Closed", caserepo.getCaseClosedCount(username.getUsername()));
 
 		} catch (Exception e) {
-			logger.error("failed", e);
+			CustomMethods.logError(e);
 		}
 
 		return log;
