@@ -171,7 +171,7 @@ public class PreClaimService {
 			if (!uploadedFile.isEmpty()) {
 				byte[] bytes = uploadedFile.getBytes();
 				String originalFilename = uploadedFile.getOriginalFilename();
-				String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss"));
 				String filename = caseId + "_" + fileType + "_" + currentDate + "."
 						+ FileUtils.getFileExtension(new File(originalFilename));
 				File serverFile = new File(Config.uploadDirectory + filename);
