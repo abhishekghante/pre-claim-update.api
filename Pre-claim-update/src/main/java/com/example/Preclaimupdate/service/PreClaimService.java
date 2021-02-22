@@ -62,7 +62,7 @@ public class PreClaimService {
 	}
 
 	public void Sendmail(Admin_user user, String pass) {
-		logger.info("passed value to Service Method Sendmail");
+		logger.error("passed value to Service Method Sendmail");
 		user.setPassword(pass);
 		Adminuser.save(user);
 		logger.info("passed Saved Value in Adminuser DB");
@@ -98,7 +98,7 @@ public class PreClaimService {
 	}
 
 	public boolean changepassword(Request username) {
-		logger.info("passed value to Service Method changepassword");
+		logger.error("passed value to Service Method changepassword");
 		Encoder encoder = Base64.getEncoder();
 		Admin_user user = Adminuser.findByUsername(username.getUsername());
 		String encodedPassword = encoder.encodeToString(username.getNewpassword().getBytes());
@@ -116,13 +116,13 @@ public class PreClaimService {
 	}
 
 	public Case_lists GetCaseDetailsByCaseId(int id) {
-		logger.info("passed value to Service Method GetCaseDetailsByCaseId");
+		logger.error("passed value to Service Method GetCaseDetailsByCaseId");
 		Case_lists caselist = Caselist.findByCaseId(id);
 		return caselist;
 	}
 
 	public List<Case_lists> GetCaseListByUsername(String username, int min, int max) {
-		logger.info("passed value to Service Method GetCaseListByUsername");
+		logger.error("passed value to Service Method GetCaseListByUsername");
 		List<Case_lists> caselist = Caselist.getCaselists(username, min, max);
 		
 		
@@ -130,7 +130,7 @@ public class PreClaimService {
 	}
 
 	public HashMap<String, Object> fileupload(MultipartFile uploadedFile, HttpServletRequest request) {
-		logger.info("passed value to Service Method fileupload");
+		logger.error("passed value to Service Method fileupload");
 		HashMap<String, Object> log = new HashMap<String, Object>();
 		// Input Validation
 
@@ -222,7 +222,7 @@ public class PreClaimService {
 	}
 
 	public HashMap<String, Object> updateCaseDetails(Request username) {
-		logger.info("passed value to Service Method updateCaseDetails");
+		logger.error("passed value to Service Method updateCaseDetails");
 		Case_lists caselist = Caselist.findByCaseId(username.getCaseid());
 		HashMap<String, Object> log = new HashMap<String, Object>();
 		Case_movement cas = caserepo.findByCaseId(caselist.getCaseId());
@@ -258,7 +258,7 @@ public class PreClaimService {
 	}
 
 	public HashMap<String, Object> dashboard(Request username) {
-		logger.info("passed value to Service Method dashboard");
+		logger.error("passed value to Service Method dashboard");
 		HashMap<String, Object> log = new HashMap<String, Object>();
 		try {
 

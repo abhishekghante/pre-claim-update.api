@@ -1,0 +1,46 @@
+2021-02-20 14:28:10,138 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [restartedMain] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2021-02-20 14:29:21,824 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [restartedMain] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2021-02-20 14:34:53,933 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [restartedMain] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8085 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8085 or configure this application to listen on another port.
+
+2021-02-20 15:26:52,773 ERROR com.example.Preclaimupdate.service.PreClaimService [http-nio-8085-exec-1] passed value to Service Method getbyusername
+2021-02-20 15:28:04,890 ERROR com.example.Preclaimupdate.service.PreClaimService [http-nio-8085-exec-5] passed value to Service Method getbyusername
+2021-02-20 15:37:13,056 ERROR com.example.Preclaimupdate.service.PreClaimService [http-nio-8085-exec-8] passed value to Service Method fileupload
+2021-02-20 15:45:38,349 ERROR com.example.Preclaimupdate.service.PreClaimService [http-nio-8085-exec-2] passed value to Service Method fileupload
