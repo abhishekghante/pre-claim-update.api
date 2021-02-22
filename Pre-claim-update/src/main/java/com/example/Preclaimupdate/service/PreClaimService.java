@@ -56,16 +56,16 @@ public class PreClaimService {
 	private Audit_casemovementRepository audit_repo;
 
 	public Admin_user getbyusername(String username) {
-		logger.error("passed value to Service Method getbyusername");
+		logger.info("passed value to Service Method getbyusername");
 		return Adminuser.findByUsername(username);
 
 	}
 
 	public void Sendmail(Admin_user user, String pass) {
-		logger.error("passed value to Service Method Sendmail");
+		logger.info("passed value to Service Method Sendmail");
 		user.setPassword(pass);
 		Adminuser.save(user);
-		logger.error("passed Saved Value in Adminuser DB");
+		logger.info("passed Saved Value in Adminuser DB");
 		String fromAddress = "claims@xangarsinfra.com";
 		String senderName = "Your company name";
 		String toAddress = user.getUser_email();
@@ -98,7 +98,7 @@ public class PreClaimService {
 	}
 
 	public boolean changepassword(Request username) {
-		logger.error("passed value to Service Method changepassword");
+		logger.info("passed value to Service Method changepassword");
 		Encoder encoder = Base64.getEncoder();
 		Admin_user user = Adminuser.findByUsername(username.getUsername());
 		String encodedPassword = encoder.encodeToString(username.getNewpassword().getBytes());
@@ -116,13 +116,13 @@ public class PreClaimService {
 	}
 
 	public Case_lists GetCaseDetailsByCaseId(int id) {
-		logger.error("passed value to Service Method GetCaseDetailsByCaseId");
+		logger.info("passed value to Service Method GetCaseDetailsByCaseId");
 		Case_lists caselist = Caselist.findByCaseId(id);
 		return caselist;
 	}
 
 	public List<Case_lists> GetCaseListByUsername(String username, int min, int max) {
-		logger.error("passed value to Service Method GetCaseListByUsername");
+		logger.info("passed value to Service Method GetCaseListByUsername");
 		List<Case_lists> caselist = Caselist.getCaselists(username, min, max);
 		
 		
@@ -130,7 +130,7 @@ public class PreClaimService {
 	}
 
 	public HashMap<String, Object> fileupload(MultipartFile uploadedFile, HttpServletRequest request) {
-		logger.error("passed value to Service Method fileupload");
+		logger.info("passed value to Service Method fileupload");
 		HashMap<String, Object> log = new HashMap<String, Object>();
 		// Input Validation
 
@@ -222,7 +222,7 @@ public class PreClaimService {
 	}
 
 	public HashMap<String, Object> updateCaseDetails(Request username) {
-		logger.error("passed value to Service Method updateCaseDetails");
+		logger.info("passed value to Service Method updateCaseDetails");
 		Case_lists caselist = Caselist.findByCaseId(username.getCaseid());
 		HashMap<String, Object> log = new HashMap<String, Object>();
 		Case_movement cas = caserepo.findByCaseId(caselist.getCaseId());
@@ -258,7 +258,7 @@ public class PreClaimService {
 	}
 
 	public HashMap<String, Object> dashboard(Request username) {
-		logger.error("passed value to Service Method dashboard");
+		logger.info("passed value to Service Method dashboard");
 		HashMap<String, Object> log = new HashMap<String, Object>();
 		try {
 

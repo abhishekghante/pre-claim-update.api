@@ -39,10 +39,13 @@
         <password>Claims@123#</password>
         <to>xangars.aniketr@xangarsinfra.com</to>
         <from>claims@xangarsinfra.com</from>
-        <subject>TESTING: %logger{20} - %m</subject>
-		<subject>Exception Notification</subject>
-		
-        <layout class="ch.qos.logback.classic.html.HTMLLayout"/>
+		<subject>Exception Notification</subject>	
+		<layout class="ch.qos.logback.classic.PatternLayout">
+        <Pattern>
+                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+            </Pattern>
+        
+    </layout>
     </appender>
 
     <logger name="com.dailycodebuffer" level="error" additivity="false">
@@ -62,6 +65,9 @@
     </logger>
     <root level="error">
         <appender-ref ref="CONSOLE"/>
+    </root>
+	<root level="error">
+        <appender-ref ref="EMAIL"/>
     </root>
 
 </configuration>
