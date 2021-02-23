@@ -178,7 +178,18 @@ public class PreClaimController {
 	public ResponseEntity<Response> updateCaseDetails(@RequestBody Request username) 
 	{
 		Response jsonResponse = new Response();
-		jsonResponse.setData(pre.updateCaseDetails(username));	
+		jsonResponse.setData(pre.updateCaseDetails(username));
+		jsonResponse.setStatus("****");
+		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+	}
+	
+	
+	@PostMapping("/GetAllCaseDetailsByUsername")
+	public ResponseEntity<Response> GetAllCaseDetailsByUsername(@RequestBody Request username) 
+	{
+		Response jsonResponse = new Response();
+		jsonResponse.setData(pre.getListofCaseId(username.getUsername()));	
+		jsonResponse.setStatus("****");
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 	}
 

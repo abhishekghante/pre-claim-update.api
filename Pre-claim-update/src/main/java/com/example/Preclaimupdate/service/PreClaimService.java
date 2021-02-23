@@ -32,6 +32,7 @@ import com.example.Preclaimupdate.controller.Repository.Audit_casemovementReposi
 import com.example.Preclaimupdate.controller.Repository.Case_movementRepository;
 import com.example.Preclaimupdate.controller.Repository.CaselistsRepository;
 import com.example.Preclaimupdate.entity.Admin_user;
+import com.example.Preclaimupdate.entity.Audit_case_movement;
 import com.example.Preclaimupdate.entity.Case_lists;
 import com.example.Preclaimupdate.entity.Case_movement;
 import com.example.Preclaimupdate.entity.Request;
@@ -273,6 +274,11 @@ public class PreClaimService {
 		}
 
 		return log;
+
+	}
+public List<Case_lists> getListofCaseId(String username) {
+		
+		return Caselist.getListofCaseId(username);
 
 	}
 

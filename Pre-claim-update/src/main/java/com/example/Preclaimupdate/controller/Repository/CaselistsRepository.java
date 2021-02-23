@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.Preclaimupdate.entity.Audit_case_movement;
 import com.example.Preclaimupdate.entity.Case_lists;
 
 @Repository
@@ -34,5 +35,10 @@ public interface CaselistsRepository extends JpaRepository<Case_lists, Integer>{
 			, nativeQuery = true)
 	int getCDPCaseCount(@Param("username") String username);
 	
+	
+	
+			@Query(value="select *from case_lists where caseId in (select caseId from audit_case_movement where fromId = :username)", nativeQuery = true)
+			List<Case_lists> getListofCaseId(@Param("username")String username);
+
 	
 }
