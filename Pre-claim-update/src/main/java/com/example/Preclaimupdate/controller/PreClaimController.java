@@ -31,7 +31,7 @@ import com.example.Preclaimupdate.service.PreClaimService;
 @RestController
 @RequestMapping
 public class PreClaimController {
-	
+
 	Logger logger = LoggerFactory.getLogger(PreClaimController.class);
 
 	@Autowired
@@ -43,15 +43,18 @@ public class PreClaimController {
 		Admin_user user = pre.getbyusername(username.getUsername());
 		Encoder encoder = Base64.getEncoder();
 		if (user != null && user.getPassword() != null
-				&& user.getPassword().equals(encoder.encodeToString(username.getPassword().getBytes()))) 
-		{
-			jsonResponse = new Response();
-			jsonResponse.setData(user);
-			jsonResponse.setStatus("Login Sucsses");
-			return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
-		} 
-		else 
-		{
+				&& user.getPassword().equals(encoder.encodeToString(username.getPassword().getBytes()))) {
+			if (user.getRole_name().equalsIgnoreCase("INV")) {
+				jsonResponse = new Response();
+				jsonResponse.setData(user);
+				jsonResponse.setStatus("Login Sucsses");
+				return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+			} else {
+				jsonResponse = new Response();
+				jsonResponse.setStatus("Login with authorize User");
+				return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+			}
+		} else {
 			jsonResponse = new Response();
 			jsonResponse.setStatus("Invalid credentials");
 			return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
@@ -59,26 +62,20 @@ public class PreClaimController {
 	}
 
 	@PostMapping("/forgot")
-	public ResponseEntity<Response> get(@RequestBody Request username)
-	{
+	public ResponseEntity<Response> get(@RequestBody Request username) {
 		Response jsonResponse;
-		try
-		{
+		try {
 			Admin_user user = pre.getbyusername(username.getUsername());
-			if (user != null) 
-			{
+			if (user != null) {
 				String pass = RandomStringUtils.random(6, true, true);
 				pre.Sendmail(user, pass);
 				jsonResponse = new Response();
 				jsonResponse.setStatus("Temporary Password sent to registered Email ID");
 				return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
-			} 
-			else
+			} else
 				jsonResponse = new Response();
 			jsonResponse.setStatus("Username not found");
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			jsonResponse = new Response();
 			jsonResponse.setStatus(e.getMessage());
 			CustomMethods.logError(e);
@@ -88,18 +85,14 @@ public class PreClaimController {
 	}
 
 	@PostMapping("/changePassword")
-	public ResponseEntity<Response> changePassword(@RequestBody Request username)
-	{ 
+	public ResponseEntity<Response> changePassword(@RequestBody Request username) {
 		Response jsonResponse;
 		HashMap<String, String> log = new HashMap<String, String>();
 		System.out.println(pre.changepassword(username));
-		if (pre.changepassword(username)) 
-		{
+		if (pre.changepassword(username)) {
 			log.put("error_code", "****");
 			log.put("error_description", "Password changed successfully");
-		} 
-		else 
-		{
+		} else {
 			log.put("error_code", "failed");
 			log.put("error_description", "Invalid Credentials");
 		}
@@ -131,30 +124,27 @@ public class PreClaimController {
 
 	/// pending
 	@PostMapping("/GetCaseListByUsername")
-	public List<Case_lists> GetCaseListByUsername(@RequestBody Request username) 
-	{
-		//Input Parameters
+	public List<Case_lists> GetCaseListByUsername(@RequestBody Request username) {
+		// Input Parameters
 		String investigatorId = username.getUsername();
 		int pageSize = username.getPagesize();
 		int pageNum = username.getPageNum();
 
-		int min = pageSize*(pageNum - 1) + 1;
-		int max	= pageNum*pageSize;
-		
-		return 	pre.GetCaseListByUsername(investigatorId, min, max);	
+		int min = pageSize * (pageNum - 1) + 1;
+		int max = pageNum * pageSize;
+
+		return pre.GetCaseListByUsername(investigatorId, min, max);
 	}
-	
+
 	@PostMapping("/dashboard")
-	public ResponseEntity<Response> dashboard(@RequestBody Request username) 
-	{
+	public ResponseEntity<Response> dashboard(@RequestBody Request username) {
 		Response jsonResponse = new Response();
 		HashMap<String, Object> log = pre.dashboard(username);
-		if(username.getUsername() != null) 
-		{
+		if (username.getUsername() != null) {
 			jsonResponse.setData(log);
 			jsonResponse.setStatus("****");
 		}
-		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);		
+		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 	}
 
 	@PostMapping("/uploadFile")
@@ -162,33 +152,27 @@ public class PreClaimController {
 			HttpServletRequest request) throws IOException {
 		Response jsonResponse = new Response();
 		HashMap<String, Object> log = pre.fileupload(uploadedFile, request);
-		if (log.isEmpty()) 
-		{
+		if (log.isEmpty()) {
 			jsonResponse.setData("File uploaded successfully");
 			jsonResponse.setStatus("*****");
-		} 
-		else 
-		{
+		} else {
 			jsonResponse.setData(log);
 		}
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 	}
 
 	@PostMapping("/updateCaseDetails")
-	public ResponseEntity<Response> updateCaseDetails(@RequestBody Request username) 
-	{
+	public ResponseEntity<Response> updateCaseDetails(@RequestBody Request username) {
 		Response jsonResponse = new Response();
 		jsonResponse.setData(pre.updateCaseDetails(username));
 		jsonResponse.setStatus("****");
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 	}
-	
-	
+
 	@PostMapping("/GetAllCaseDetailsByUsername")
-	public ResponseEntity<Response> GetAllCaseDetailsByUsername(@RequestBody Request username) 
-	{
+	public ResponseEntity<Response> GetAllCaseDetailsByUsername(@RequestBody Request username) {
 		Response jsonResponse = new Response();
-		jsonResponse.setData(pre.getListofCaseId(username.getUsername()));	
+		jsonResponse.setData(pre.getListofCaseId(username.getUsername()));
 		jsonResponse.setStatus("****");
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 	}
