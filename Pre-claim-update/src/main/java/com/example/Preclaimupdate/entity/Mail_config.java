@@ -167,4 +167,14 @@ public class Mail_config {
 		this.updated_on = updated_on;
 	}
 
+	@Override
+	public String toString() {
+		return "Mail_config [mailConfigId=" + mailConfigId + ", username=" + username + ", password=" + password
+				+ ", outgoingServer=" + outgoingServer + ", outgoingPort=" + outgoingPort + ", encryptionType="
+				+ encryptionType + ", status=" + status + ", createdBy=" + createdBy + ", created_on=" + created_on
+				+ ", updatedBy=" + updatedBy + ", updated_on=" + updated_on + "]";
+	}
+	
+	
+
 }

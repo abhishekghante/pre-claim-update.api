@@ -10,7 +10,7 @@ import com.example.Preclaimupdate.entity.Case_movement;
 @Repository
 public interface Case_movementRepository extends JpaRepository<Case_movement, Integer>{
 	
-	Case_movement findByCaseId(int CaseId);
+	Case_movement findByCaseId(long caseId);
 	
 	@Query(value="select count(*) from case_movement where toId = :username", nativeQuery = true)
 	int getNewCaseCount(@Param("username")String username);

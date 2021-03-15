@@ -19,7 +19,7 @@ public class Case_movement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name =  "caseId")
-	private int caseId;
+	private long caseId;
 	
 	@Column(name =  "fromId")
 	private String fromId;
@@ -39,7 +39,7 @@ public class Case_movement {
 	@Column(name =  "updatedDate")
 	private Date updatedDate;
 
-	public Case_movement(int caseId, String fromId, String toId, String caseStatus, String remarks, Date createdDate,
+	public Case_movement(long caseId, String fromId, String toId, String caseStatus, String remarks, Date createdDate,
 			Date updatedDate) {
 		super();
 		this.caseId = caseId;
@@ -51,7 +51,7 @@ public class Case_movement {
 		this.updatedDate = updatedDate;
 	}
 
-	public int getCaseId() {
+	public long getCaseId() {
 		return caseId;
 	}
 

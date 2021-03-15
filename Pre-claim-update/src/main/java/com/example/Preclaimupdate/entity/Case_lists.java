@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity(name = "case_lists")
 @Table(name = "case_lists")
@@ -48,6 +49,9 @@ public class Case_lists {
 	
 	@Column(name = "caseStatus")
 	private String caseStatus;
+	
+	@Column(name = "caseSubStatus")
+	private String caseSubStatus;
 	
 	@Column(name = "nominee_Name")
 	private String nominee_Name;
@@ -88,6 +92,9 @@ public class Case_lists {
 	@Column(name = "signatureFilePath")
 	private String signatureFilePath;
 	
+	@Column(name = "image")
+	private String image;
+	
 	@Column(name = "capturedDate")
 	private String capturedDate;
 	
@@ -102,6 +109,11 @@ public class Case_lists {
 	
 	@Column(name = "updatedBy")
 	private String updatedBy;
+	
+	@Transient
+	private String remarks;
+	@Transient
+	private String fromUser;
 
 	public Case_lists() {
 		this.caseId = 0;
@@ -112,6 +124,7 @@ public class Case_lists {
 		this.sumAssured = 0;
 		this.intimationType = "";
 		this.caseStatus = "";
+		this.caseSubStatus = "";
 		this.nominee_Name = "";
 		this.nominee_ContactNumber = "";
 		this.nominee_address = "";
@@ -125,11 +138,14 @@ public class Case_lists {
 		this.audioFilePath = "";
 		this.videoFilePath = "";
 		this.signatureFilePath = "";
+		this.image = "";
 		this.createdBy = "";
 		this.createdDate = new Date();
 		this.updatedDate = new Date();
 		this.updatedBy = "";
 		this.capturedDate = "";
+		this.remarks = "";
+		this.fromUser = "";
 	}
 
 	public int getCaseId() {
@@ -210,6 +226,14 @@ public class Case_lists {
 
 	public void setCaseStatus(String caseStatus) {
 		this.caseStatus = caseStatus;
+	}
+
+	public String getCaseSubStatus() {
+		return caseSubStatus;
+	}
+
+	public void setCaseSubStatus(String caseSubStatus) {
+		this.caseSubStatus = caseSubStatus;
 	}
 
 	public String getNominee_Name() {
@@ -316,6 +340,14 @@ public class Case_lists {
 		this.signatureFilePath = signatureFilePath;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public String getCapturedDate() {
 		return capturedDate;
 	}
@@ -355,8 +387,21 @@ public class Case_lists {
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-	
-	
 
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getFromUser() {
+		return fromUser;
+	}
+
+	public void setFromUser(String fromUser) {
+		this.fromUser = fromUser;
+	}
 	
 }

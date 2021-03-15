@@ -10,12 +10,18 @@ import java.util.Base64.Encoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.logging.log4j.core.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +37,13 @@ import com.example.Preclaimupdate.controller.Repository.AdminuserRepository;
 import com.example.Preclaimupdate.controller.Repository.Audit_casemovementRepository;
 import com.example.Preclaimupdate.controller.Repository.Case_movementRepository;
 import com.example.Preclaimupdate.controller.Repository.CaselistsRepository;
+import com.example.Preclaimupdate.controller.Repository.MailConfigRepository;
+import com.example.Preclaimupdate.controller.Repository.caseSubStatusRepository;
 import com.example.Preclaimupdate.entity.Admin_user;
-import com.example.Preclaimupdate.entity.Audit_case_movement;
+import com.example.Preclaimupdate.entity.CaseSubStatus;
 import com.example.Preclaimupdate.entity.Case_lists;
 import com.example.Preclaimupdate.entity.Case_movement;
+import com.example.Preclaimupdate.entity.Mail_config;
 import com.example.Preclaimupdate.entity.Request;
 
 @Service
@@ -55,18 +64,32 @@ public class PreClaimService {
 
 	@Autowired
 	private Audit_casemovementRepository audit_repo;
+	
+	@Autowired
+	private MailConfigRepository mailConfig;
+	
+	@Autowired
+	private caseSubStatusRepository casesubStatus;
+	
 
 	public Admin_user getbyusername(String username) {
-		logger.info("passed value to Service Method getbyusername");
 		return Adminuser.findByUsername(username);
 
 	}
 
-	public void Sendmail(Admin_user user, String pass) {
-		logger.error("passed value to Service Method Sendmail");
+	public void save(Admin_user user) {
+		Adminuser.save(user);
+	}
+	
+	public Case_movement findByCaseId(long caseId)
+	{
+		return caserepo.findByCaseId(caseId);
+	}
+	
+     public void Sendmail(String username, String pass) {
+		Admin_user user = Adminuser.findByUsername(username);
 		user.setPassword(pass);
 		Adminuser.save(user);
-		logger.info("passed Saved Value in Adminuser DB");
 		String fromAddress = "claims@xangarsinfra.com";
 		String senderName = "Your company name";
 		String toAddress = user.getUser_email();
@@ -84,11 +107,8 @@ public class PreClaimService {
 			helper.addCc("xangars.aniketr@xangarsinfra.com");
 
 			helper.setSubject(subject);
-
-			content = content.replace("[[name]]", RandomStringUtils.random(6, true, true));
-
+			content = content.replace("[[name]]", pass);
 			helper.setText(content, true);
-
 			mailSender.send(message);
 
 		} catch (MessagingException e) {
@@ -97,9 +117,8 @@ public class PreClaimService {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public boolean changepassword(Request username) {
-		logger.error("passed value to Service Method changepassword");
 		Encoder encoder = Base64.getEncoder();
 		Admin_user user = Adminuser.findByUsername(username.getUsername());
 		String encodedPassword = encoder.encodeToString(username.getNewpassword().getBytes());
@@ -117,21 +136,16 @@ public class PreClaimService {
 	}
 
 	public Case_lists GetCaseDetailsByCaseId(int id) {
-		logger.error("passed value to Service Method GetCaseDetailsByCaseId");
 		Case_lists caselist = Caselist.findByCaseId(id);
 		return caselist;
 	}
 
 	public List<Case_lists> GetCaseListByUsername(String username, int min, int max) {
-		logger.error("passed value to Service Method GetCaseListByUsername");
 		List<Case_lists> caselist = Caselist.getCaselists(username, min, max);
-		
-		
 		return caselist;
 	}
 
 	public HashMap<String, Object> fileupload(MultipartFile uploadedFile, HttpServletRequest request) {
-		logger.error("passed value to Service Method fileupload");
 		HashMap<String, Object> log = new HashMap<String, Object>();
 		// Input Validation
 
@@ -207,14 +221,18 @@ public class PreClaimService {
 					caselist.setSignatureFilePath(fileURL);
 					break;
 				}
+				case "image": {
+					caselist.setImage(fileURL);
+					break;
+				}
 				}
 				Caselist.save(caselist);
 			}
 		} catch (Exception e) {
-			logger.error("Failed", e);
 			e.printStackTrace();
 			log.put("error_code", "Failed");
 			log.put("error_description", e.getMessage());
+			CustomMethods.logError(e);
 			return log;
 		}
 
@@ -223,10 +241,10 @@ public class PreClaimService {
 	}
 
 	public HashMap<String, Object> updateCaseDetails(Request username) {
-		logger.error("passed value to Service Method updateCaseDetails");
 		Case_lists caselist = Caselist.findByCaseId(username.getCaseid());
 		HashMap<String, Object> log = new HashMap<String, Object>();
 		Case_movement cas = caserepo.findByCaseId(caselist.getCaseId());
+		CaseSubStatus caseSubstatus = casesubStatus.findById(4);
 		try {
 
 			String to = cas.getToId();
@@ -243,23 +261,27 @@ public class PreClaimService {
 			caselist.setLatitude(username.getLatitude());
 			caselist.setLongitude(username.getLongitude());
 			caselist.setCapturedDate(username.getCapturedDate());
+			caselist.setCaseStatus(caseSubstatus.getCase_status());
+			caselist.setCaseSubStatus(caseSubstatus.getCaseSubStatus());
 			Caselist.save(caselist);
 
-			if (caselist != null) {
+			if (caselist != null) 
+			{
 				log.put("error_code", "****");
 				log.put("error_description", "Cases Details submitted successfully");
 				Caselist.save(caselist);
 			}
-
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
+			log.put("error_code", "Failed");
+			log.put("error_description", e.getMessage());
 			CustomMethods.logError(e);
 		}
 		return log;
-
 	}
 
 	public HashMap<String, Object> dashboard(Request username) {
-		logger.error("passed value to Service Method dashboard");
 		HashMap<String, Object> log = new HashMap<String, Object>();
 		try {
 
@@ -269,16 +291,15 @@ public class PreClaimService {
 			log.put("Claim Document Pickup", Caselist.getCDPCaseCount(username.getUsername()));
 			log.put("Closed", caserepo.getCaseClosedCount(username.getUsername()));
 
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
+			log.put("error_code", "Failed");
+			log.put("error_description", e.getMessage());
 			CustomMethods.logError(e);
 		}
 
 		return log;
-
-	}
-public List<Case_lists> getListofCaseId(String username) {
-		
-		return Caselist.getListofCaseId(username);
 
 	}
 

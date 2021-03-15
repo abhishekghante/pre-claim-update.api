@@ -18,8 +18,5 @@ public interface Audit_casemovementRepository extends JpaRepository<Audit_case_m
 			nativeQuery = true)
 	@Transactional
 	void insertlog(@Param("caseId") int caseId);
-	
-	@Query(value="select caseId from audit_case_movement where fromId = :username", nativeQuery = true)
-	<List>Audit_case_movement getListofCaseId(@Param("username")String username);
 
 }

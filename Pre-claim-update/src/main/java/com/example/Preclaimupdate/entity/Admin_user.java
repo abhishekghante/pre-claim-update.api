@@ -79,7 +79,6 @@ public class Admin_user {
 
 	public Admin_user() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getUser_id() {
