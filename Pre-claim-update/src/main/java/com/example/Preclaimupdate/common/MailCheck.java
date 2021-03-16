@@ -1,71 +1,50 @@
 package com.example.Preclaimupdate.common;
 
+import java.util.Properties;
+
+import javax.mail.Transport;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.stereotype.Component;
 
 import com.example.Preclaimupdate.controller.Repository.MailConfigRepository;
 import com.example.Preclaimupdate.entity.Mail_config;
 
-@ConfigurationProperties("spring.mail")
+@Component
 public class MailCheck {
 	
-
+	@Autowired
+	private MailConfigRepository mailConfig;
 	
-	private String host;
-	private int port;
-	private String username;
-	private String password;
-
-	public MailCheck(String host, int port, String username, String password) {
-		super();
-		this.host = host;
-		this.port = port;
-		this.username = username;
-		this.password = password;
-	}
-
-	public MailCheck() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public String getHost() {
-		return host;
-	}
-
-	public void setHost(String host) {
-		this.host = host;
-	}
-
-	public int getPort() {
-		return port;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	@Override
-	public String toString() {
-		return "MailCheck [host=" + host + ", port=" + port + ", username=" + username + ", password=" + password + "]";
-	}
 	
+@Bean
+public JavaMailSender getMailSender() {
+	
+	Mail_config mConfig =  mailConfig.findBymailConfigId(9);
+	
+	
+	JavaMailSenderImpl mailsender= new JavaMailSenderImpl();
+	
+	  mailsender.setHost(mConfig.getOutgoingServer());
+	  mailsender.setPort(mConfig.getOutgoingPort());
+	  mailsender.setUsername(mConfig.getUsername());
+	  mailsender.setPassword(mConfig.getPassword());
+	  
+	  Properties property= new Properties();
+	  property.put("mail.smtp.starttls.enable", "true");
+	  property.put("mail.smtp.auth", "true");
+	  property.put("mail.transport.protocol", "smtp");
+	  
+	  mailsender.setJavaMailProperties(property);
+	 
+	return mailsender;
+	
+	
+}
 	
 	
 	

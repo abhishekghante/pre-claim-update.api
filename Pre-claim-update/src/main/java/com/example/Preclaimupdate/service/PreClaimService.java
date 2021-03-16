@@ -3,6 +3,7 @@ package com.example.Preclaimupdate.service;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
@@ -27,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -86,26 +88,27 @@ public class PreClaimService {
 		return caserepo.findByCaseId(caseId);
 	}
 	
-     public void Sendmail(String username, String pass) {
+     public void Sendmail(String username, String pass) throws UnsupportedEncodingException {
 		Admin_user user = Adminuser.findByUsername(username);
 		user.setPassword(pass);
 		Adminuser.save(user);
-		String fromAddress = "claims@xangarsinfra.com";
+		
+		Mail_config mConfig =  mailConfig.findBymailConfigId(9);		
 		String senderName = "Your company name";
 		String toAddress = user.getUser_email();
 
 		String subject = "You temp password ";
 		String content = "Your temp password is<h3> [[name]]</h3>Kindly set your password,<br>" + "Thank you,<br>"
-				+ "Your company name.";
+				       + "Your company name.";
 
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 
 		try {
-			helper.setFrom(fromAddress);
+			
+			helper.setFrom(mConfig.getUsername(),senderName);
 			helper.setTo(toAddress);
 			helper.addCc("xangars.aniketr@xangarsinfra.com");
-
 			helper.setSubject(subject);
 			content = content.replace("[[name]]", pass);
 			helper.setText(content, true);
