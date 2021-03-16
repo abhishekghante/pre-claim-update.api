@@ -1,6 +1,4 @@
-2021-02-23 16:25:09,754 ERROR com.example.Preclaimupdate.service.PreClaimService [http-nio-8080-exec-4] passed value to Service Method updateCaseDetails
-2021-02-23 16:25:37,367 ERROR com.example.Preclaimupdate.service.PreClaimService [http-nio-8080-exec-1] passed value to Service Method updateCaseDetails
-2021-03-15 16:56:43,284 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [restartedMain] 
+2021-03-16 13:25:33,991 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [restartedMain] 
 
 ***************************
 APPLICATION FAILED TO START
@@ -8,13 +6,17 @@ APPLICATION FAILED TO START
 
 Description:
 
-Web server failed to start. Port 8080 was already in use.
+Field mailSender in com.example.Preclaimupdate.service.PreClaimService required a bean of type 'org.springframework.mail.javamail.JavaMailSender' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
 
 Action:
 
-Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+Consider defining a bean of type 'org.springframework.mail.javamail.JavaMailSender' in your configuration.
 
-2021-03-15 16:57:42,309 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [restartedMain] 
+2021-03-16 13:29:56,015 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [restartedMain] 
 
 ***************************
 APPLICATION FAILED TO START
@@ -22,9 +24,27 @@ APPLICATION FAILED TO START
 
 Description:
 
-Web server failed to start. Port 8080 was already in use.
+Field mailSender in com.example.Preclaimupdate.service.PreClaimService required a bean of type 'org.springframework.mail.javamail.JavaMailSender' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
 
 Action:
 
-Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+Consider defining a bean of type 'org.springframework.mail.javamail.JavaMailSender' in your configuration.
+
+2021-03-16 13:33:02,492 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [restartedMain] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
 
