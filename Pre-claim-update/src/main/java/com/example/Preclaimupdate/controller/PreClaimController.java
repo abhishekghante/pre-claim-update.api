@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.Preclaimupdate.common.Config;
 import com.example.Preclaimupdate.common.CustomMethods;
-import com.example.Preclaimupdate.controller.Repository.Case_movementRepository;
 import com.example.Preclaimupdate.entity.Admin_user;
 import com.example.Preclaimupdate.entity.Case_lists;
 import com.example.Preclaimupdate.entity.Case_movement;
@@ -41,10 +40,6 @@ public class PreClaimController {
 
 	@Autowired
 	private PreClaimService pre;
-	
-	@Autowired
-	private Case_movementRepository caserepo;
-	
 	
 	@PostMapping("/login")
 	public ResponseEntity<Response> login(@RequestBody Request username) {
@@ -232,7 +227,10 @@ public class PreClaimController {
 			if(full_name != null)
 				user.setFull_name(full_name);
 			if(password != null)
-				user.setPassword(password);
+			{
+				Encoder encoder = Base64.getEncoder();
+				user.setPassword(encoder.encodeToString(password.getBytes()));
+			}
 			if(emailId != null)
 				user.setUser_email(emailId);
 			if(contactNumber != null)
