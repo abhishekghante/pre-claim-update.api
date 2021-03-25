@@ -2,7 +2,7 @@
 <configuration>
 	<include
 		resource="org/springframework/boot/logging/logback/defaults.xml" />
-	<property name="LOG_FILE" value="logs/app.log" />
+	<property name="LOG_FILE" value="C:\\Pre-Claim Investigation\\uploads\\app.log" />
 
 	<appender name="FILE-ROLLING"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -10,7 +10,7 @@
 
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-			<fileNamePattern>logs/archived/app.%d{YYYY-MM-DD}.%i.log
+			<fileNamePattern>C:\\Pre-Claim Investigation\\uploads\\app.%d{YYYY-MM-DD}.%i.log
 			</fileNamePattern>
 			<!-- each archived file, size max 5KB -->
 			<maxFileSize>5KB</maxFileSize>

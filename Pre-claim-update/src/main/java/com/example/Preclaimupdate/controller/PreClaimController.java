@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,15 @@ public class PreClaimController {
 
 	@Autowired
 	private PreClaimService pre;
+	
+	@GetMapping("/")
+	public ResponseEntity<Response> main()
+	{
+		Response jsonResponse = new Response();
+		jsonResponse.setData("Hi !! I'm API service.");
+		jsonResponse.setStatus("Login successful");
+		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+	}
 	
 	@PostMapping("/login")
 	public ResponseEntity<Response> login(@RequestBody Request username) {
@@ -118,6 +128,21 @@ public class PreClaimController {
 		Response jsonResponse;
 		if (log != null) 
 		{
+			if(!log.getPdf1FilePath().equals(""))
+				log.setPdf1FilePath(Config.uploadURL + log.getPdf1FilePath());
+			if(!log.getPdf2FilePath().equals(""))
+				log.setPdf2FilePath(Config.uploadURL + log.getPdf2FilePath());
+			if(!log.getPdf3FilePath().equals(""))
+				log.setPdf3FilePath(Config.uploadURL + log.getPdf3FilePath());
+			if(!log.getAudioFilePath().equals(""))
+				log.setAudioFilePath(Config.uploadURL + log.getAudioFilePath());
+			if(!log.getVideoFilePath().equals(""))
+				log.setVideoFilePath(Config.uploadURL + log.getVideoFilePath());
+			if(!log.getImage().equals(""))
+				log.setImage(Config.uploadURL + log.getImage());
+			if(!log.getSignatureFilePath().equals(""))
+				log.setSignatureFilePath(Config.uploadURL + log.getSignatureFilePath());
+			
 			Case_movement caserepo = pre.findByCaseId(id);
 			Admin_user user = pre.getbyusername(caserepo.getFromId());
 			log.setRemarks(caserepo.getRemarks());

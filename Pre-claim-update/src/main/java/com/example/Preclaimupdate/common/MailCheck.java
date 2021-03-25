@@ -2,10 +2,7 @@ package com.example.Preclaimupdate.common;
 
 import java.util.Properties;
 
-import javax.mail.Transport;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
