@@ -67,7 +67,10 @@ public class PreClaimService {
 	
 
 	public Admin_user getbyusername(String username) {
-		return Adminuser.findByUsername(username);
+		Admin_user user = Adminuser.findByUsername(username);
+		if(!user.getUser_image().equals(""))
+			user.setUser_image(Config.uploadURL + user.getUser_image());
+		return user;
 
 	}
 
@@ -82,7 +85,8 @@ public class PreClaimService {
 	
      public void Sendmail(String username, String pass) throws UnsupportedEncodingException {
 		Admin_user user = Adminuser.findByUsername(username);
-		user.setPassword(pass);
+		Encoder encoder = Base64.getEncoder();
+		user.setPassword(encoder.encodeToString(pass.getBytes()));
 		Adminuser.save(user);
 		
 		Mail_config mConfig =  mailConfig.findBymailConfigId(9);		
