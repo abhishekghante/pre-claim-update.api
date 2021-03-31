@@ -122,7 +122,7 @@ public class PreClaimController {
 
 	@PostMapping("/getCaseDetailsByCaseId")
 	public ResponseEntity<Response> getCaseDetailsByCaseId(@RequestBody Request username) {
-		int id = username.getCaseid();
+		long id = username.getCaseid();
 		System.out.println(id + username.getUsername());
 		Case_lists log = pre.GetCaseDetailsByCaseId(id);
 		Response jsonResponse;

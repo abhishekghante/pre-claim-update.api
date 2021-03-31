@@ -134,7 +134,7 @@ public class PreClaimService {
 
 	}
 
-	public Case_lists GetCaseDetailsByCaseId(int id) {
+	public Case_lists GetCaseDetailsByCaseId(long id) {
 		Case_lists caselist = Caselist.findByCaseId(id);
 		return caselist;
 	}

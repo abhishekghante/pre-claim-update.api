@@ -12,7 +12,7 @@ import com.example.Preclaimupdate.entity.Case_lists;
 @Repository
 public interface CaselistsRepository extends JpaRepository<Case_lists, Integer>{
 	
-	Case_lists findByCaseId(int caseId);
+	Case_lists findByCaseId(long caseId);
 	
 	@Query(value = "SELECT D.* FROM case_lists D WHERE D.caseId IN (SELECT B.caseId FROM "
 			+ "(SELECT ROW_NUMBER() OVER(ORDER BY A.caseId) AS RRN , A.caseId from case_lists A "
