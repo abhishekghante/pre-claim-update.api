@@ -310,7 +310,7 @@ public class PreClaimService {
 	{
 		try
 		{
-			return caserepo.getNewCaseList(username.getUsername());
+			return Caselist.getNewCaseList(username.getUsername());
 		}
 		catch (Exception e) 
 		{
@@ -323,7 +323,7 @@ public class PreClaimService {
 	{
 		try
 		{
-			return caserepo.getCaseSubmittedList(username.getUsername());
+			return Caselist.getCaseSubmittedList(username.getUsername());
 		}
 		catch (Exception e) 
 		{
@@ -336,7 +336,7 @@ public class PreClaimService {
 	{
 		try
 		{
-			return caserepo.getCaseClosedList(username.getUsername());
+			return Caselist.getCaseClosedList(username.getUsername());
 		}
 		catch (Exception e) 
 		{

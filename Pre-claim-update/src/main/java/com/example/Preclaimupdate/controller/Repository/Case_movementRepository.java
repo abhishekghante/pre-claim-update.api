@@ -34,27 +34,6 @@ public interface Case_movementRepository extends JpaRepository<Case_movement, In
 			nativeQuery = true)
 	int getCaseClosedCount(@Param("username")String username);
 	
-	@Query(value="select a.* from case_lists a, case_movement b where a.caseId = b.caseId and "
-			+ "b.toId = :username", nativeQuery = true)
-	List<Case_lists> getNewCaseList(@Param("username")String username);
-	
-	@Query(value="select a.* from case_lists a, ("
-			+ "select a.* from audit_case_movement a, ("
-			+ "select caseId, max(updatedDate) as updatedDate from audit_case_movement "
-			+ "where user_role = 'INV' group by caseId) b "
-			+ "where a.caseId = b.caseId and a.updatedDate = b.updatedDate and a.user_role = 'INV') b "
-			+ "where a.caseId = b.caseId and b.toId = :username", nativeQuery = true)
-	List<Case_lists> getCaseSubmittedList(@Param("username")String username);
-	
-	@Query(value="select a.* from case_lists a, ("
-			+ "select a.* from audit_case_movement a, ("
-			+ "select caseId, max(updatedDate) as updatedDate from audit_case_movement where user_role = 'INV' group by caseId) b "
-			+ "where a.caseId = b.caseId and a.updatedDate = b.updatedDate and a.user_role = 'INV') b "
-			+ "where a.caseId = b.caseId and a.caseStatus = 'Closed' and b.toId = :username", 
-			nativeQuery = true)
-	List<Case_lists> getCaseClosedList(@Param("username")String username);
-	
-	
 	Case_movement save(Case_movement Case_lists);
 
 }
