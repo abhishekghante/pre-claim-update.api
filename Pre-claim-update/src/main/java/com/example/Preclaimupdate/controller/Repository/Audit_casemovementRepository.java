@@ -17,6 +17,6 @@ public interface Audit_casemovementRepository extends JpaRepository<Audit_case_m
 	@Query(value = "INSERT INTO audit_case_movement SELECT * from case_movement where caseId = :caseId", 
 			nativeQuery = true)
 	@Transactional
-	void insertlog(@Param("caseId") int caseId);
+	void insertlog(@Param("caseId") long caseId);
 
 }

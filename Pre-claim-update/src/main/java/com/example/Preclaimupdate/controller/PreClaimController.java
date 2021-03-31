@@ -190,6 +190,66 @@ public class PreClaimController {
 		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);		
 	}
 
+	@PostMapping("/getNewCaseList")
+	public ResponseEntity<Response> getNewCaseList(@RequestBody Request username) 
+	{
+		Response jsonResponse = new Response();
+		if(username.getUsername() != null) 
+		{
+			jsonResponse.setData(pre.getNewCaseList(username));
+			jsonResponse.setStatus("****");
+		}
+		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+	}
+	
+	@PostMapping("/getCaseSubmittedList")
+	public ResponseEntity<Response> getCaseSubmittedList(@RequestBody Request username) 
+	{
+		Response jsonResponse = new Response();
+		if(username.getUsername() != null) 
+		{
+			jsonResponse.setData(pre.getCaseSubmittedList(username));
+			jsonResponse.setStatus("****");
+		}
+		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+	}
+	
+	@PostMapping("/getCaseIntimationList")
+	public ResponseEntity<Response> getCaseIntimationList(@RequestBody Request username) 
+	{
+		Response jsonResponse = new Response();
+		if(username.getUsername() != null) 
+		{
+			jsonResponse.setData(pre.getCaseIntimationList(username));
+			jsonResponse.setStatus("****");
+		}
+		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+	}
+	
+	@PostMapping("/getCDPCaseList")
+	public ResponseEntity<Response> getCDPCaseList(@RequestBody Request username) 
+	{
+		Response jsonResponse = new Response();
+		if(username.getUsername() != null) 
+		{
+			jsonResponse.setData(pre.getCDPCaseList(username));
+			jsonResponse.setStatus("****");
+		}
+		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+	}
+	
+	@PostMapping("/getCaseClosedList")
+	public ResponseEntity<Response> getCaseClosedList(@RequestBody Request username) 
+	{
+		Response jsonResponse = new Response();
+		if(username.getUsername() != null) 
+		{
+			jsonResponse.setData(pre.getCaseClosedList(username));
+			jsonResponse.setStatus("****");
+		}
+		return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+	}
+	
 	@PostMapping("/uploadFile")
 	public ResponseEntity<Response> uploadFile(@RequestParam("uploadedFile") MultipartFile uploadedFile,
 			HttpServletRequest request) throws IOException {

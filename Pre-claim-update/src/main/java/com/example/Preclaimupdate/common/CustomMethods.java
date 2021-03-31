@@ -21,6 +21,7 @@ public class CustomMethods {
 		uploadType.add("audio");
 		uploadType.add("video");
 		uploadType.add("signature");
+		uploadType.add("excel");
 		return uploadType;
 	}
 	

@@ -224,6 +224,10 @@ public class PreClaimService {
 					caselist.setImage(fileURL);
 					break;
 				}
+				case "excel": {
+					caselist.setExcelFilepath(fileURL);
+					break;
+				}
 				}
 				Caselist.save(caselist);
 			}
@@ -301,5 +305,69 @@ public class PreClaimService {
 		return log;
 
 	}
+	
+	public List<Case_lists> getNewCaseList(Request username)
+	{
+		try
+		{
+			return caserepo.getNewCaseList(username.getUsername());
+		}
+		catch (Exception e) 
+		{
+			CustomMethods.logError(e);
+			return null;
+		}
+	}
+	
+	public List<Case_lists> getCaseSubmittedList(Request username)
+	{
+		try
+		{
+			return caserepo.getCaseSubmittedList(username.getUsername());
+		}
+		catch (Exception e) 
+		{
+			CustomMethods.logError(e);
+			return null;
+		}
+	}
 
+	public List<Case_lists> getCaseClosedList(Request username)
+	{
+		try
+		{
+			return caserepo.getCaseClosedList(username.getUsername());
+		}
+		catch (Exception e) 
+		{
+			CustomMethods.logError(e);
+			return null;
+		}
+	}
+	
+	public List<Case_lists> getCaseIntimationList(Request username)
+	{
+		try
+		{
+			return Caselist.getCaseIntimationList(username.getUsername());
+		}
+		catch (Exception e) 
+		{
+			CustomMethods.logError(e);
+			return null;
+		}
+	}
+	
+	public List<Case_lists> getCDPCaseList(Request username)
+	{
+		try
+		{
+			return Caselist.getCDPCaseList(username.getUsername());
+		}
+		catch (Exception e) 
+		{
+			CustomMethods.logError(e);
+			return null;
+		}
+	}
 }

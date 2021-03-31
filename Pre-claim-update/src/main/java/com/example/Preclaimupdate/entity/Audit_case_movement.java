@@ -21,6 +21,12 @@ public class Audit_case_movement {
 	@Column(name = "toId")
 	private String toId;
 	
+	@Column(name = "user_role")
+	private String user_role;
+	
+	@Column(name = "zone")
+	private String zone;
+	
 	@Column(name = "caseStatus")
 	private String caseStatus;
 	
@@ -34,14 +40,25 @@ public class Audit_case_movement {
 	private Date updatedDate;
 
 	public Audit_case_movement() {
+		this.caseId = 0;
+		this.fromId = "";
+		this.toId = "";
+		this.user_role = "";
+		this.zone = "";
+		this.caseStatus = "";
+		this.remarks = "";
+		this.createdDate = new Date();
+		this.updatedDate = new Date();
 	}
 
-	public Audit_case_movement(int caseId, String fromId, String toId, String caseStatus, String remarks,
-			Date createdDate, Date updatedDate) {
+	public Audit_case_movement(int caseId, String fromId, String toId, String user_role, String zone, String caseStatus,
+			String remarks, Date createdDate, Date updatedDate) {
 		super();
 		this.caseId = caseId;
 		this.fromId = fromId;
 		this.toId = toId;
+		this.user_role = user_role;
+		this.zone = zone;
 		this.caseStatus = caseStatus;
 		this.remarks = remarks;
 		this.createdDate = createdDate;
@@ -70,6 +87,22 @@ public class Audit_case_movement {
 
 	public void setToId(String toId) {
 		this.toId = toId;
+	}
+
+	public String getUser_role() {
+		return user_role;
+	}
+
+	public void setUser_role(String user_role) {
+		this.user_role = user_role;
+	}
+
+	public String getZone() {
+		return zone;
+	}
+
+	public void setZone(String zone) {
+		this.zone = zone;
 	}
 
 	public String getCaseStatus() {

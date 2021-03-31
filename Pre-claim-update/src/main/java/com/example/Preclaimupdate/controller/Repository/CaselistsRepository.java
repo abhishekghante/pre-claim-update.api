@@ -34,5 +34,14 @@ public interface CaselistsRepository extends JpaRepository<Case_lists, Integer>{
 			, nativeQuery = true)
 	int getCDPCaseCount(@Param("username") String username);
 	
+	@Query(value="select * from case_lists where intimationType <> 'CDP' and caseId in "
+			+ "(SELECT caseId from case_movement where toId = :username)"
+			, nativeQuery = true)		
+	List<Case_lists> getCaseIntimationList(@Param("username") String username);
+	
+	@Query(value="select * from case_lists where intimationType = 'CDP' and caseId in "
+			+ "(SELECT caseId from case_movement where toId = :username)"
+			, nativeQuery = true)
+	List<Case_lists> getCDPCaseList(@Param("username") String username);
 	
 }

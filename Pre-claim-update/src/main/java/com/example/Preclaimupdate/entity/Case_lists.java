@@ -19,7 +19,7 @@ public class Case_lists {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "caseId")
-	private int caseId;
+	private long caseId;
 	
 	@Column(name = "policyNumber")
 	private String policyNumber;
@@ -62,6 +62,9 @@ public class Case_lists {
 	@Column(name = "nominee_address")
 	private String nominee_address;
 	
+	@Column(name = "pincode")
+	private String pincode;
+
 	@Column(name = "insured_address")
 	private String insured_address;
 	
@@ -91,6 +94,9 @@ public class Case_lists {
 	
 	@Column(name = "signatureFilePath")
 	private String signatureFilePath;
+	
+	@Column(name = "excelFilepath")
+	private String excelFilepath;
 	
 	@Column(name = "image")
 	private String image;
@@ -128,6 +134,7 @@ public class Case_lists {
 		this.nominee_Name = "";
 		this.nominee_ContactNumber = "";
 		this.nominee_address = "";
+		this.pincode = "";
 		this.insured_address = "";
 		this.case_description = "";
 		this.longitude = "";
@@ -138,6 +145,7 @@ public class Case_lists {
 		this.audioFilePath = "";
 		this.videoFilePath = "";
 		this.signatureFilePath = "";
+		this.excelFilepath = "";
 		this.image = "";
 		this.createdBy = "";
 		this.createdDate = new Date();
@@ -148,11 +156,11 @@ public class Case_lists {
 		this.fromUser = "";
 	}
 
-	public int getCaseId() {
+	public long getCaseId() {
 		return caseId;
 	}
 
-	public void setCaseId(int caseId) {
+	public void setCaseId(long caseId) {
 		this.caseId = caseId;
 	}
 
@@ -260,6 +268,14 @@ public class Case_lists {
 		this.nominee_address = nominee_address;
 	}
 
+	public String getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
+
 	public String getInsured_address() {
 		return insured_address;
 	}
@@ -338,6 +354,14 @@ public class Case_lists {
 
 	public void setSignatureFilePath(String signatureFilePath) {
 		this.signatureFilePath = signatureFilePath;
+	}
+
+	public String getExcelFilepath() {
+		return excelFilepath;
+	}
+
+	public void setExcelFilepath(String excelFilepath) {
+		this.excelFilepath = excelFilepath;
 	}
 
 	public String getImage() {
