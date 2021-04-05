@@ -190,12 +190,19 @@ public class PreClaimController {
 		int min = pageSize*(pageNum - 1) + 1;
 		int max	= pageNum*pageSize;
 		List<Case_lists> caselist = pre.GetCaseListByUsername(investigatorId, min, max);
-		System.out.println(caselist.size());
-		if (caselist.size() > 0)
+		Admin_user user = pre.getbyusername(username.getUsername());
+		if (user!=null)
 		{
 			jsonResponse = new Response();
-			jsonResponse.setData(caselist);
-			jsonResponse.setStatus("case list details");
+			if(caselist.size() > 0)
+			{
+					jsonResponse.setData(caselist);
+					jsonResponse.setStatus("case list details");
+			}
+			 else {
+					jsonResponse.setData(caselist);
+					jsonResponse.setStatus("zero case list");
+			      } 
 			return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 		} 
 		else 
