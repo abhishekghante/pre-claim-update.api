@@ -194,15 +194,9 @@ public class PreClaimController {
 		if (user!=null)
 		{
 			jsonResponse = new Response();
-			if(caselist.size() > 0)
-			{
-					jsonResponse.setData(caselist);
-					jsonResponse.setStatus("case list details");
-			}
-			 else {
-					jsonResponse.setData(caselist);
-					jsonResponse.setStatus("zero case list");
-			      } 
+			jsonResponse.setData(caselist);
+			jsonResponse.setStatus("case list details");
+			
 			return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 		} 
 		else 
