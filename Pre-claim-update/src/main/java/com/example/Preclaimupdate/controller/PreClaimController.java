@@ -163,7 +163,7 @@ public class PreClaimController {
 
 	}
 
-	@PostMapping("/GetCaseListByUsername")
+/*	@PostMapping("/GetCaseListByUsername")
 	public List<Case_lists> GetCaseListByUsername(@RequestBody Request username) 
 	{
 		//Input Parameters
@@ -174,7 +174,36 @@ public class PreClaimController {
 		int min = pageSize*(pageNum - 1) + 1;
 		int max	= pageNum*pageSize;
 		
-		return 	pre.GetCaseListByUsername(investigatorId, min, max);	
+		List<Case_lists> caselist = pre.GetCaseListByUsername(investigatorId, min, max);	
+		return  caselist;
+	}
+	*/
+	
+	@PostMapping("/GetCaseListByUsername")
+	public ResponseEntity<Response> GetCaseListByUsername(@RequestBody Request username) {
+		Response jsonResponse;
+		//Input Parameters
+		String investigatorId = username.getUsername();
+		int pageSize = username.getPagesize();
+		int pageNum = username.getPageNum();
+
+		int min = pageSize*(pageNum - 1) + 1;
+		int max	= pageNum*pageSize;
+		List<Case_lists> caselist = pre.GetCaseListByUsername(investigatorId, min, max);
+		System.out.println(caselist.size());
+		if (caselist.size() > 0)
+		{
+			jsonResponse = new Response();
+			jsonResponse.setData(caselist);
+			jsonResponse.setStatus("case list details");
+			return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+		} 
+		else 
+		{
+			jsonResponse = new Response();
+			jsonResponse.setStatus("Invalid Username");
+			return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+		}
 	}
 	
 	@PostMapping("/dashboard")

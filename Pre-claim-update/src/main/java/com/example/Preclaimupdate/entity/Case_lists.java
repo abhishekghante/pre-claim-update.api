@@ -427,5 +427,23 @@ public class Case_lists {
 	public void setFromUser(String fromUser) {
 		this.fromUser = fromUser;
 	}
+
+	@Override
+	public String toString() {
+		return "Case_lists [caseId=" + caseId + ", policyNumber=" + policyNumber + ", investigation=" + investigation
+				+ ", insuredName=" + insuredName + ", insuredDOD=" + insuredDOD + ", insuredDOB=" + insuredDOB
+				+ ", sumAssured=" + sumAssured + ", intimationType=" + intimationType + ", location=" + location
+				+ ", caseStatus=" + caseStatus + ", caseSubStatus=" + caseSubStatus + ", nominee_Name=" + nominee_Name
+				+ ", nominee_ContactNumber=" + nominee_ContactNumber + ", nominee_address=" + nominee_address
+				+ ", pincode=" + pincode + ", insured_address=" + insured_address + ", case_description="
+				+ case_description + ", longitude=" + longitude + ", latitude=" + latitude + ", pdf1FilePath="
+				+ pdf1FilePath + ", pdf2FilePath=" + pdf2FilePath + ", pdf3FilePath=" + pdf3FilePath
+				+ ", audioFilePath=" + audioFilePath + ", videoFilePath=" + videoFilePath + ", signatureFilePath="
+				+ signatureFilePath + ", excelFilepath=" + excelFilepath + ", image=" + image + ", capturedDate="
+				+ capturedDate + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", updatedDate="
+				+ updatedDate + ", updatedBy=" + updatedBy + ", remarks=" + remarks + ", fromUser=" + fromUser + "]";
+	}
+	
+	
 	
 }
