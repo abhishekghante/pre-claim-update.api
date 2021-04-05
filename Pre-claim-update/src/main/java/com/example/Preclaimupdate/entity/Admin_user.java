@@ -225,4 +225,17 @@ public class Admin_user {
 		this.updatedBy = updatedBy;
 	}
 
+	@Override
+	public String toString() {
+		return "Admin_user [user_id=" + user_id + ", full_name=" + full_name + ", role_name=" + role_name
+				+ ", username=" + username + ", user_email=" + user_email + ", mobile_number=" + mobile_number
+				+ ", address1=" + address1 + ", address2=" + address2 + ", address3=" + address3 + ", state=" + state
+				+ ", city=" + city + ", password=" + password + ", status=" + status + ", user_image=" + user_image
+				+ ", createdBy=" + createdBy + ", createdon=" + createdon + ", updatedDate=" + updatedDate
+				+ ", updatedBy=" + updatedBy + "]";
+	}
+	
+	
+	
+
 }

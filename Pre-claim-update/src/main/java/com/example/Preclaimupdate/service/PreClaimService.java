@@ -67,11 +67,10 @@ public class PreClaimService {
 	
 
 	public Admin_user getbyusername(String username) {
-		Admin_user user = Adminuser.findByUsername(username);
-		if(!user.getUser_image().equals(""))
+		Admin_user user = Adminuser.findByUsername(username);	
+		if(user != null )
 			user.setUser_image(Config.uploadURL + user.getUser_image());
-		return user;
-
+	    	return user;
 	}
 
 	public void save(Admin_user user) {
